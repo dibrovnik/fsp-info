@@ -1,0 +1,31 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+tabs:
+    fields:
+
+        # Default Country
+        default_country:
+            span: left
+            label: Default Country
+            comment: When a user does not specify their location, select a default country to use.
+            type: dropdown
+            tab: Location
+            placeholder: -- no default --
+
+        # Default State
+        default_state:
+            span: right
+            label: Default State
+            comment: When a user does not specify their location, select a default state to use.
+            type: dropdown
+            tab: Location
+            dependsOn: default_country
+            placeholder: -- no default --
+
+        # Google Maps API Key
+        google_maps_key:
+            label: Google Maps API Key
+            comment: If you plan on using Google Maps services, enter the API key for it here.
+            tab: Credentials

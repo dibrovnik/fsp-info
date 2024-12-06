@@ -1,0 +1,28 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    name:
+        label: Name
+        searchable: true
+
+    code:
+        label: Code
+        searchable: true
+
+    iso_code:
+        label: ISO Code
+        searchable: true
+
+    calling_code:
+        label: Calling Code
+        searchable: true
+
+    is_enabled:
+        label: Enabled
+        type: switch
+
+    is_pinned:
+        label: Pinned
+        type: switch

@@ -1,0 +1,12 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+states:
+    label: State
+    list: $/rainlab/location/models/state/columns.yaml
+    form: $/rainlab/location/models/state/fields.yaml
+    view:
+        showSearch: true
+        toolbarPartial: $/rainlab/location/controllers/locations/_states_list_toolbar.htm
+        filter: $/rainlab/location/models/state/scopes.yaml

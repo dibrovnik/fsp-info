@@ -1,0 +1,24 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    name:
+        label: Name
+        span: auto
+        commentAbove: Enter the display name for this state.
+
+    code:
+        label: Code
+        span: auto
+        commentAbove: Enter a unique code to identify this state.
+        preset:
+            field: name
+            type: slug
+
+    is_enabled:
+        label: Enabled
+        comment: Uncheck to hide this state from the selection lists.
+        type: checkbox
+        default: true
+        span: left

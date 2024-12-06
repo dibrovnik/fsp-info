@@ -1,0 +1,36 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Location
+
+# Model Form Field configuration
+form: ~/plugins/rainlab/location/models/country/fields.yaml
+
+# Model Class name
+modelClass: RainLab\Location\Models\Country
+
+# Default redirect location
+defaultRedirect: rainlab/location/locations
+
+# Form Design
+design:
+    displayMode: basic
+    size: 750
+
+# Create page
+create:
+    title: Create Location
+    redirect: rainlab/location/locations/update/:id
+    redirectClose: rainlab/location/locations
+
+# Update page
+update:
+    title: Edit Location
+    redirect: rainlab/location/locations
+    redirectClose: rainlab/location/locations
+
+# Preview page
+preview:
+    title: Preview Location

@@ -1,0 +1,13 @@
+<form id="event-create-form" data-request-flash data-request="onCreateRegion" method="POST"
+    class="d-flex gap-3 flex-column" data-request-success="">
+    <input class="form-control" type="text" placeholder="Название региона" required name="name">
+    <input class="form-control" type="number" placeholder="Код региона" required name="code">
+    <textarea class="form-control" placeholder="Описание мероприятия" required name="description"></textarea>
+    <select name="district_id" id="">
+        <option value="">Выберите округ</option>
+        {% for district, key in allDistricts %}
+        <option value="{{key}}">{{district}}</option>
+        {% endfor %}
+    </select>
+    <button class="btn btn-primary" data-attach-loading>Создать регион</button>
+</form>

@@ -1,0 +1,37 @@
+title = "Добавление результата"
+url = "result/create"
+layout = "default"
+description = "Welcome to the vanilla theme for October CMS!"
+hidden = "0"
+
+[createResult]
+==
+
+<h1>Добавление результата</h1>
+<form id="myForm">
+    <input type="file" name="results" id="">
+    <button type="button" onclick="submitForm()">Отправить</button>
+</form>
+
+<script>
+    function submitForm() {
+        const form = document.getElementById('myForm');
+        const formData = new FormData(form);
+
+        fetch('/api/v1/result/create', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Форма успешно отправлена!');
+            } else {
+                alert('Ошибка: ' + data.message);
+            }
+        })
+        .catch(error => console.error('Ошибка:', error));
+    }
+</script>
+
+{% component 'createResult' %}

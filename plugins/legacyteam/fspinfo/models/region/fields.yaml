@@ -1,0 +1,9 @@
+fields:
+    district_id:
+        label: 'District id'
+        span: auto
+        type: number
+    name:
+        label: Name
+        span: auto
+        type: text

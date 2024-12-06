@@ -1,0 +1,22 @@
+columns:
+    id:
+        label: id
+        type: number
+    sender_id:
+        label: sender_id
+        type: number
+    event_id:
+        label: event_id
+        type: number
+    text:
+        label: text
+        type: text
+    subject:
+        label: subject
+        type: text
+    created_at:
+        label: created_at
+        type: datetime
+    updated_at:
+        label: updated_at
+        type: datetime

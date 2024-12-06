@@ -1,0 +1,76 @@
+<form id="event-create-form" data-request-flash data-request="onCreateEvent" enctype="multipart/form-data" method="POST"
+    class="d-flex gap-3 flex-column" data-request-success="resetForm();">
+    <input class="form-control" type="text" placeholder="Название мероприятия" required name="name">
+    <textarea class="form-control" placeholder="Описание мероприятия" required name="description"></textarea>
+    <textarea class="form-control" placeholder="Краткое описание" name="short-description"></textarea>
+    <input class="form-control daterange" type="text" name="daterange" placeholder="Период присутствия" value="" />
+
+
+    <input class="form-control" type="text" placeholder="Адрес" name="address" id="address">
+    <div class="form-check">
+        <label class="form-check-label" for="online-event">Онлайн мероприятие</label>
+        <input class="form-check-input" type="checkbox" name="is_online" id="online-event">
+    </div>
+    <label for="file">Файл положения</label>
+    <select name="priority" id="">
+        <option value="">Укажите приоритет</option>
+        <option value="0">Не указан</option>
+        <option value="1">Муниципальный (городской)</option>
+        <option value="2">Региональный</option>
+        <option value="3">Федеральный</option>
+        <option value="4">Всероссийский</option>
+    </select>
+    <input name="position-files" id="file" type="file" class="form-control" accept=".pdf" />
+    <button class="btn btn-primary" data-attach-loading>Отправить мероприятие</button>
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment/min/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<script>
+    function resetForm() {
+        var frm = document.getElementById('event-create-form');
+        frm.submit(); // Submit the form
+        frm.reset();  // Reset all form data
+        return false; // Prevent page refresh
+    }
+    $(document).ready(function () {
+        // Инициализация Date Range Picker
+        $('.daterange').daterangepicker({
+            locale: {
+                format: 'DD.MM.YYYY',
+                separator: ' - ',
+                applyLabel: 'Применить',
+                cancelLabel: 'Отмена',
+                fromLabel: 'От',
+                toLabel: 'До',
+                customRangeLabel: 'Свой диапазон',
+                daysOfWeek: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+                monthNames: [
+                    'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+                    'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+                ],
+                firstDay: 1
+            },
+            startDate: moment(),
+            endDate: moment().add(1, 'days'),
+            minDate: moment(),
+            opens: 'center',
+            drops: 'down',
+        });
+
+        // Обработка события выбора чекбокса
+        $('#online-event').on('change', function () {
+            const isChecked = $(this).is(':checked');
+            const addressField = $('#address');
+
+            if (isChecked) {
+                addressField.prop('disabled', true).removeAttr('required');
+            } else {
+                addressField.prop('disabled', false).attr('required', 'required');
+            }
+        });
+    });
+</script>

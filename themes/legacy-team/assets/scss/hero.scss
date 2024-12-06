@@ -1,0 +1,99 @@
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: start;
+  justify-self: center;
+  height: 500px;
+  width: 100%;
+  border-radius: 20px;
+  background-color: #ff0000;
+  margin-bottom: 30px;
+  padding: 100px 40px;
+
+  p {
+    font-weight: 800;
+  }
+}
+.news {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  &__slider {
+    display: flex;
+
+    align-items: center;
+    gap: 20px;
+  }
+  &__photo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__item {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 5;
+    gap: 10px;
+    width: 100%;
+    border-radius: 20px;
+    img {
+      border-radius: 10px;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 1;
+    }
+    a {
+      color: $blue-color;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+  &__button {
+    align-self: center;
+  }
+  &__button:hover {
+    background: $blue;
+    color: #fff;
+  }
+}
+.dates {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__tag {
+    padding: 3px 11px;
+    align-items: center;
+    border-radius: 50px;
+    border: 1px solid #bdcfe4;
+  }
+}
+
+.news__grid {
+  --columns-desktop: 4;
+  --columns-mobile: 1;
+  --collumn-min-size: 16rem;
+  --gap: 1rem;
+
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(
+      max(
+        var(--collumn-min-size),
+        calc(
+          (100% - (var(--gap) * (var(--columns-desktop) - 1))) /
+            var(--columns-desktop)
+        )
+      ),
+      1fr
+    )
+  );
+  gap: var(--gap);
+  @media (width < 576px) {
+    grid-template-columns: repeat(var(--columns-mobile), minmax(0, 1fr));
+  }
+}

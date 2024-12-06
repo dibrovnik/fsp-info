@@ -1,0 +1,10 @@
+name: AgentsController
+form: $/legacyteam/fspinfo/models/agent/fields.yaml
+modelClass: Legacyteam\FspInfo\Models\Agent
+defaultRedirect: legacyteam/fspinfo/agentscontroller
+create:
+    redirect: 'legacyteam/fspinfo/agentscontroller/update/:id'
+    redirectClose: legacyteam/fspinfo/agentscontroller
+update:
+    redirect: legacyteam/fspinfo/agentscontroller
+    redirectClose: legacyteam/fspinfo/agentscontroller

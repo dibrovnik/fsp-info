@@ -1,0 +1,12 @@
+list: $/legacyteam/fspinfo/models/result/columns.yaml
+modelClass: Legacyteam\FspInfo\Models\Result
+title: ResultsController
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'legacyteam/fspinfo/resultscontroller/update/:id'

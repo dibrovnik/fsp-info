@@ -1,0 +1,40 @@
+plugin:
+    name: 'legacyteam.fspinfo::lang.plugin.name'
+    description: 'legacyteam.fspinfo::lang.plugin.description'
+    author: LegacyTeam
+    icon: oc-icon-info
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: 'Menu Item'
+        icon: icon-life-ring
+        url: /
+        sideMenu:
+            events:
+                label: Events
+                url: legacyteam/fspinfo/eventscontroller
+                icon: icon-sitemap
+            agents:
+                label: Agents
+                url: legacyteam/fspinfo/agentscontroller
+                icon: icon-sitemap
+            region:
+                label: Region
+                url: legacyteam/fspinfo/regioncontroller
+                icon: icon-sitemap
+            districts:
+                label: Districts
+                url: legacyteam/fspinfo/districtscontroller
+                icon: icon-sitemap
+            comments:
+                label: Comments
+                url: legacyteam/fspinfo/commentscontroller
+                icon: icon-sitemap
+            results:
+                label: Results
+                url: legacyteam/fspinfo/resultscontroller
+                icon: icon-sitemap
+            news:
+                label: News
+                url: legacyteam/fspinfo/newscontroller
+                icon: icon-sitemap

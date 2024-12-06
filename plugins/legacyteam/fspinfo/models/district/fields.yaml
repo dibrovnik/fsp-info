@@ -1,0 +1,9 @@
+fields:
+    name:
+        label: Name
+        span: auto
+        type: text
+    short_name:
+        label: 'Short name'
+        span: auto
+        type: text

@@ -1,0 +1,18 @@
+<a href="/storage/app/media/Шаблон.xlsx" download class="btn btn-secondary">Скачать шаблон для загрузки результатов</a>
+<form id="create-result-form" data-request-flash data-request="onCreateResult" method="POST"
+    class="d-flex flex-column gap-3">
+
+    <label for="event_id">Выберите мероприятие:</label>
+    <select name="event_id" id="event_id" class="form-control" required>
+        {% for event in __SELF__.events %}
+        <option value="{{ event.id }}">{{ event.name }}</option>
+        {% endfor %}
+    </select>
+
+    <input type="text" name="winner_name" class="form-control" placeholder="Имя победителя" required>
+    <input type="text" name="contact_info" class="form-control" placeholder="Контактная информация">
+    <input type="number" name="position" class="form-control" placeholder="Место">
+    <input type="number" name="score" class="form-control" placeholder="Очки">
+
+    <button type="submit" class="btn btn-primary mt-3">Сохранить результат</button>
+</form>

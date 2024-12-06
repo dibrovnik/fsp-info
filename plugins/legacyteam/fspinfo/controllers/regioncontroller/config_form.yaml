@@ -1,0 +1,10 @@
+name: RegionController
+form: $/legacyteam/fspinfo/models/region/fields.yaml
+modelClass: Legacyteam\FspInfo\Models\Region
+defaultRedirect: legacyteam/fspinfo/regioncontroller
+create:
+    redirect: 'legacyteam/fspinfo/regioncontroller/update/:id'
+    redirectClose: legacyteam/fspinfo/regioncontroller
+update:
+    redirect: legacyteam/fspinfo/regioncontroller
+    redirectClose: legacyteam/fspinfo/regioncontroller

@@ -1,0 +1,43 @@
+##
+description = "Default layout"
+
+[notifications]
+[session]
+security = "all"
+==
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% partial 'site/meta' %}
+</head>
+
+<body>
+    <!-- Header -->
+    <header id="layout-header">
+        {% partial 'site/header' %}
+    </header>
+
+    {% component 'notifications' %}
+
+    {% partial 'site/flash-messages' %}
+
+    <!-- Content -->
+    <section id="layout-content">
+        <div class="wrapper">
+            {% page %}
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="layout-footer">
+        {% partial "site/footer" %}
+    </footer>
+
+    <!-- Common -->
+    {% partial 'modals/alert-dialog' %}
+    {% partial 'modals/password-dialog' %}
+    {% partial 'modals/ajax-modal' %}
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+.map {
+  display: flex;
+  flex-direction: column;
+  p {
+    font-weight: 800;
+  }
+}
+.tooltip {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  gap: 20px;
+  background-color: #d9d9d9;
+  //   background-color: #fff;
+  border-radius: 20px;
+  padding: 17px;
+  display: none;
+  z-index: 1000;
+  text-wrap: nowrap;
+  a {
+    text-decoration: underline;
+  }
+  p {
+    font-weight: 800;
+  }
+  span {
+    color: #2185fb;
+  }
+
+  @media (max-width: 768px) {
+    padding: 10px;
+    a {
+      font-size: 14px;
+      font-weight: 800;
+      color: #2185fb;
+    }
+    p {
+      font-size: 14px;
+    }
+    span {
+      font-size: 14px;
+      color: #2185fb;
+    }
+  }
+
+  @media (max-width: 560px) {
+    padding: 10px;
+    gap: 10px;
+    a {
+      font-size: 8px;
+      font-weight: 800;
+      color: #2185fb;
+    }
+    p {
+      font-size: 8px;
+    }
+    span {
+      font-size: 8px;
+      color: #2185fb;
+    }
+  }
+}
+.tooltip.show {
+  display: flex;
+}
+.title {
+  //   margin-bottom: 20px;
+}

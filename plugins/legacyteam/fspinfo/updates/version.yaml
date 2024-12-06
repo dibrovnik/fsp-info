@@ -1,0 +1,89 @@
+v1.0.1:
+    - 'Initialize plugin'
+v1.0.2:
+    - 'Created table legacyteam_fspinfo_agents'
+    - builder_table_create_legacyteam_fspinfo_agents.php
+v1.0.3:
+    - 'Created table legacyteam_fspinfo_regions'
+    - builder_table_create_legacyteam_fspinfo_regions.php
+v1.0.4:
+    - 'Updated table legacyteam_fspinfo_regions'
+    - builder_table_update_legacyteam_fspinfo_districts.php
+v1.0.5:
+    - 'Created table legacyteam_fspinfo_regions'
+    - builder_table_create_legacyteam_fspinfo_regions_2.php
+v1.0.6:
+    - 'Created table legacyteam_fspinfo_events'
+    - builder_table_create_legacyteam_fspinfo_events.php
+v1.0.7:
+    - 'Updated table legacyteam_fspinfo_events'
+    - builder_table_update_legacyteam_fspinfo_events.php
+v1.0.8:
+    - 'Created table legacyteam_fspinfo_comments'
+    - builder_table_create_legacyteam_fspinfo_comments.php
+v1.0.9:
+    - 'Updated table legacyteam_fspinfo_comments'
+    - builder_table_update_legacyteam_fspinfo_comments.php
+v1.0.10:
+    - 'Updated table legacyteam_fspinfo_districts'
+    - builder_table_update_legacyteam_fspinfo_districts_2.php
+v1.0.11:
+    - 'Updated table legacyteam_fspinfo_agents'
+    - builder_table_update_legacyteam_fspinfo_agents.php
+v1.0.12:
+    - 'Created table legacyteam_fspinfo_results'
+    - builder_table_create_legacyteam_fspinfo_results.php
+v1.0.13:
+    - 'Updated table legacyteam_fspinfo_regions'
+    - builder_table_update_legacyteam_fspinfo_regions.php
+v1.0.14:
+    - 'Updated table legacyteam_fspinfo_districts'
+    - builder_table_update_legacyteam_fspinfo_districts_3.php
+v1.0.15:
+    - 'Created table legacyteam_fspinfo_roles'
+    - builder_table_create_legacyteam_fspinfo_roles.php
+v1.0.16:
+    - 'Updated table legacyteam_fspinfo_agents'
+    - builder_table_update_legacyteam_fspinfo_agents_2.php
+v1.0.17:
+    - 'Drop table legacyteam_fspinfo_roles'
+    - builder_table_delete_legacyteam_fspinfo_roles.php
+v1.0.18:
+    - 'Updated table legacyteam_fspinfo_results'
+    - builder_table_update_legacyteam_fspinfo_results.php
+v1.0.19:
+    - 'Updated table legacyteam_fspinfo_agents'
+    - builder_table_update_legacyteam_fspinfo_agents_3.php
+v1.0.20:
+    - 'Updated table legacyteam_fspinfo_agents'
+    - builder_table_update_legacyteam_fspinfo_agents_4.php
+v1.0.21:
+    - 'Created table legacyteam_fspinfo_news'
+    - builder_table_create_legacyteam_fspinfo_news.php
+v1.0.22:
+    - 'Updated table legacyteam_fspinfo_regions'
+    - builder_table_update_legacyteam_fspinfo_regions_2.php
+v1.0.23:
+    - 'Updated table legacyteam_fspinfo_events'
+    - builder_table_update_legacyteam_fspinfo_events_2.php
+v1.0.24:
+    - 'Updated table legacyteam_fspinfo_news'
+    - builder_table_update_legacyteam_fspinfo_news.php
+v1.0.25:
+    - 'Updated table legacyteam_fspinfo_events'
+    - builder_table_update_legacyteam_fspinfo_events_3.php
+v1.0.26:
+    - 'Updated table legacyteam_fspinfo_regions'
+    - builder_table_update_legacyteam_fspinfo_regions_3.php
+v1.0.27:
+    - 'Updated table legacyteam_fspinfo_events'
+    - builder_table_update_legacyteam_fspinfo_events_4.php
+v1.0.28:
+    - 'Updated table legacyteam_fspinfo_regions'
+    - builder_table_update_legacyteam_fspinfo_regions_4.php
+v1.0.29:
+    - 'Updated table legacyteam_fspinfo_events'
+    - builder_table_update_legacyteam_fspinfo_events_5.php
+v1.0.30:
+    - 'Updated table legacyteam_fspinfo_news'
+    - builder_table_update_legacyteam_fspinfo_news_2.php

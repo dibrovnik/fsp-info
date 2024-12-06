@@ -1,0 +1,254 @@
+.profile {
+    &__title {
+        color: var(--color-black-solid, #000);
+        // text-align: center;
+        font-family: Inter;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 48px;
+        /* 200% */
+    }
+
+    &__account-info-wrapper {
+        margin-top: 20px;
+        display: flex;
+        // height: 227px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        align-self: stretch;
+    }
+
+
+
+    &__account-info-fields {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        align-self: stretch;
+    }
+
+    &__btn-danger {
+        display: flex;
+        padding: 15px 25px;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 4px;
+        border: var(--stroke-weight-1, 1px) solid var(--leader-id-ru-white, #FFF);
+        background: var(--leader-id-ru-white, #FFF);
+        box-shadow: 0px 3px 5px 0px rgba(142, 165, 192, 0.20), 0px 6px 10px 0px rgba(142, 165, 192, 0.14), 0px 1px 18px 0px rgba(142, 165, 192, 0.12);
+
+        color: var(--leader-id-ru-sunset-orange, #FF564E);
+        text-align: center;
+
+        /* leader-id.ru/Inter/Bold */
+        font-family: var(--font-family-Font-1, Inter);
+        font-size: 14px;
+        font-style: normal;
+        font-weight: var(--font-weight-700, 700);
+        line-height: var(--line-height-18, 18px);
+        /* 128.571% */
+    }
+
+    &__account-btns {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    &__field-label {
+        span {
+            color: var(--color-red-65, #FF564E);
+            font-family: Inter;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+
+        color: var(--color-black-solid, #000);
+        font-family: Inter;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+
+    &__field {
+        display: flex;
+        width: 411px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+
+
+        input {
+            color: var(--leader-id-ru-periwinkle-gray, #BDCFE4);
+
+            /* leader-id.ru/Inter/Regular */
+            font-family: var(--font-family-Font-1, Inter);
+            font-size: 13.234px;
+            font-style: normal;
+            font-weight: var(--font-weight-400, 400);
+            line-height: var(--line-height-22_4, 22.4px);
+            /* 169.256% */
+
+            display: flex;
+            padding: 10px 20px;
+            align-items: center;
+            align-self: stretch;
+
+            border-radius: 4px;
+            background: var(--leader-id-ru-white, #FFF);
+            box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.08);
+        }
+    }
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.profile-region {
+    &__list {
+
+        --columns-desktop: 2;
+        --columns-mobile: 1;
+        --collumn-min-size: 598px;
+        --gap: 20px;
+
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(max(var(--collumn-min-size), calc((100% - (var(--gap) * (var(--columns-desktop) - 1))) / var(--columns-desktop))), 1fr));
+        gap: var(--gap);
+
+        @media (width < 768px) {
+            grid-template-columns: repeat(var(--columns-mobile), minmax(0, 1fr));
+        }
+
+    }
+
+    &__item {
+        position: relative;
+        border-radius: 10px 10px 30px 30px;
+        overflow: hidden;
+
+        border-radius: 20px;
+        background: var(--color-white-solid, #FFF);
+        box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.08);
+    }
+
+    &__item-footer {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 11px 82px 15px 185px;
+        justify-content: flex-end;
+        align-items: center;
+
+        position: absolute;
+        height: fit-content;
+        z-index: 2;
+        bottom: -1px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+
+
+        border-radius: 20px;
+        background: var(--color-white-solid, #FFF);
+        box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.08);
+
+        .h1 {
+            color: var(--leader-id-ru-black, #000);
+            font-family: Inter;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 800;
+            line-height: normal;
+        }
+
+        .h2 {
+            color: var(--leader-id-ru-black, #000);
+            font-family: Inter;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 800;
+            line-height: normal;
+        }
+    }
+
+    &__avatar {
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        flex-shrink: 0;
+
+
+        border-radius: 100%;
+        fill: #C4C4C4;
+        stroke-width: 6px;
+        stroke: #FFF;
+        border: 10px solid #FFF;
+
+        background: antiquewhite;
+        z-index: 10;
+        top: 27px;
+        left: 30px;
+    }
+
+    &__banner {
+        width: 100%;
+
+        height: 202px;
+        flex-shrink: 0;
+        border-radius: 10px 10px 30px 30px;
+
+        img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+.tabs-control__item {
+    display: flex;
+    padding: 15px 25px;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 4px;
+    border: var(--stroke-weight-1, 1px) solid var(--leader-id-ru-periwinkle-gray, #BDCFE4);
+
+    color: var(--leader-id-ru-dodger-blue, var(--color-azure-56, #2185FB));
+    text-align: center;
+
+    /* leader-id.ru/Inter/Bold */
+    font-family: var(--font-family-Font-1, Inter);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: var(--font-weight-700, 700);
+    line-height: var(--line-height-18, 18px);
+    /* 128.571% */
+
+    &.active {
+        color: #FFF;
+
+        border-radius: 4px;
+        border: var(--stroke-weight-1, 1px) solid var(--color-azure-50, #0057FF);
+        background: var(--color-azure-50, #0057FF);
+    }
+}
+
+.tabs-control__list {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    align-self: stretch;
+}

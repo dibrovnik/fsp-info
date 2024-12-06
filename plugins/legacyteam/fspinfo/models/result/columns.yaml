@@ -1,0 +1,25 @@
+columns:
+    id:
+        label: id
+        type: number
+    event_id:
+        label: event_id
+        type: number
+    winner_name:
+        label: winner_name
+        type: text
+    contact_info:
+        label: contact_info
+        type: text
+    position:
+        label: position
+        type: number
+    score:
+        label: score
+        type: number
+    created_at:
+        label: created_at
+        type: datetime
+    updated_at:
+        label: updated_at
+        type: datetime

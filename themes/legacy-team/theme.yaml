@@ -1,0 +1,12 @@
+name: fsp-info
+description: ''
+author: 'LegacyTeam '
+homepage: ''
+authorCode: 'LegacyTeam '
+code: FSP-Info
+parent: ''
+database: '0'
+require:
+    - RainLab.User
+    - RainLab.UserPlus
+    - RainLab.Forum

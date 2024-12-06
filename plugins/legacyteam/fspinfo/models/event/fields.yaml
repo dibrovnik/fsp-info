@@ -1,0 +1,42 @@
+fields:
+    name:
+        label: Name
+        span: auto
+        type: text
+    description:
+        label: Description
+        span: auto
+        type: textarea
+    agent_id:
+        label: 'Agent id'
+        span: auto
+        type: number
+    status:
+        label: Status
+        span: auto
+        type: number
+    date_from:
+        label: 'Date from'
+        span: auto
+        type: datepicker
+    date_to:
+        label: 'Date to'
+        span: auto
+        type: datepicker
+    photos:
+        label: Photos
+        span: auto
+        mode: image
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        type: fileupload
+    priority:
+        label: Priority
+        span: auto
+        type: number
+    participants:
+        label: Participants
+        span: auto
+        type: number

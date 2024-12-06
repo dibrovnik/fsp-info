@@ -1,0 +1,10 @@
+name: NewsController
+form: $/legacyteam/fspinfo/models/news/fields.yaml
+modelClass: Legacyteam\FspInfo\Models\News
+defaultRedirect: legacyteam/fspinfo/newscontroller
+create:
+    redirect: 'legacyteam/fspinfo/newscontroller/update/:id'
+    redirectClose: legacyteam/fspinfo/newscontroller
+update:
+    redirect: legacyteam/fspinfo/newscontroller
+    redirectClose: legacyteam/fspinfo/newscontroller

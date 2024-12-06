@@ -1,0 +1,26 @@
+fields:
+    verification_status:
+        label: 'Verification status'
+        span: auto
+        type: number
+    user_id:
+        label: 'User id'
+        span: auto
+        type: number
+    role:
+        label: Role
+        span: auto
+        type: number
+    region_id:
+        label: 'Region id'
+        span: auto
+        type: number
+    avatar:
+        label: Avatar
+        mode: image
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        span: auto
+        type: fileupload

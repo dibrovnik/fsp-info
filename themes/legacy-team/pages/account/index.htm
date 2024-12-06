@@ -1,0 +1,362 @@
+##
+title = "Account Details"
+url = "/account"
+layout = "default"
+description = "Sign in, registration and account management."
+
+[session]
+security = "user"
+redirect = "account/login"
+
+[account]
+isDefault = 1
+
+[resetPassword]
+
+[resources]
+vars[activeNavLink] = 'account'
+
+[accountComponent]
+[createEvent]
+[createNews]
+==
+<style>
+    .tab-content {
+        display: none;
+        /* По умолчанию содержимое вкладок скрыто */
+    }
+
+    .tab-content.active {
+        display: block;
+        /* Показываем активную вкладку */
+    }
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const tabButtons = document.querySelectorAll(".tab-button");
+        const tabContents = document.querySelectorAll(".tab-content");
+
+        // Получаем текущую вкладку из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentTab = urlParams.get('tab') || 'details'; // По умолчанию 'tab1'
+
+        // Устанавливаем активную вкладку при загрузке
+        function setActiveTab(tabId) {
+            // Удаляем активный класс со всех кнопок и вкладок
+            tabButtons.forEach(button => button.classList.remove("active"));
+            tabContents.forEach(content => content.classList.remove("active"));
+
+            // Добавляем активный класс к текущей кнопке и содержимому
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add("active");
+            document.getElementById(tabId).classList.add("active");
+        }
+
+        // Функция для переключения вкладок
+        function switchTab(event) {
+            const targetTab = event.target.getAttribute("data-tab");
+
+            // Обновляем URL параметр
+            const newUrl = `${window.location.pathname}?tab=${targetTab}`;
+            window.history.pushState({ path: newUrl }, '', newUrl);
+
+            // Переключаем вкладки
+            setActiveTab(targetTab);
+        }
+
+        // Назначаем обработчики событий всем кнопкам
+        tabButtons.forEach(button => {
+            button.addEventListener("click", switchTab);
+        });
+
+        // Устанавливаем вкладку при загрузке
+        setActiveTab(currentTab);
+    });
+</script>
+
+<h1 class="profile__title">Данные аккаунта {{agent.user.first_name}} {{agent.user.last_name}}</h1>
+<div class="tabs-control__list tabs">
+    <button class="tabs-control__item tab-button active" data-tab="details">Детали</button>
+    <button class="tabs-control__item tab-button" data-tab="analitics">Аналитика</button>
+    <button class="tabs-control__item tab-button" data-tab="create-event">Отправить заявку</button>
+    <button class="tabs-control__item tab-button" data-tab="create-news">Создать новость</button>
+    <!-- <a href="event/create" class="tabs-control__item" data-tab="create-event">Отправить заявку</a>
+    <a href="news/create" class="tabs-control__item" data-tab="create-event">Создать новость</a> -->
+</div>
+<div id="details" class="tab-content active">
+    <div class="profile__account-info-wrapper">
+        <div class="profile__account-info-fields">
+            <div class="profile__field">
+                <label for="" class="profile__field-label">Логин</label>
+                <input type="text" readonly value="{{ user.email }}">
+            </div>
+            <div class="profile__field">
+                <label for="" class="profile__field-label">Пароль</label>
+                <input type="text" readonly value="*********">
+            </div>
+        </div>
+        <div class="profile__account-btns">
+            <button class="profile__btn-danger">Выйти</button>
+            <button class="profile__btn-danger">Удалить аккаунт</button>
+        </div>
+    </div>
+
+    <h1 class="profile__title mt-20">Региональные отделения</h1>
+    <div class="profile-region__list">
+        <div class="profile-region__item">
+            <div class="profile-region__banner">
+                <img src="{{'assets/img/banner.png '|theme }}" alt="">
+            </div>
+            <div class="profile-region__avatar">
+                <img src="" alt="">
+            </div>
+            <div class="profile-region__item-footer">
+                <div class="h1">{{agent.region.name}}</div>
+                <div class="h2">{{agent.region.district.short_name}}</div>
+                <a href="region/edit/{{agent.region.id}}" class="btn">Редактировать аккаунт представительства</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- TODO: ИЗМЕНИТЬ СТИЛИ ЧТОБЫ НЕ СКАКАЛИ ГРАФИКИ -->
+<div id="analitics" class="tab-content">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <div style="    display: flex;
+    margin-top: 40px;
+    justify-content: space-around;">
+        <canvas id="scoreChart" width="800" height="200" style="width: 100%; max-width: 150px;"></canvas>
+        <canvas id="statusChart" width="800" height="200"
+            style="width: 100%; max-width: 150px; height: 150px;"></canvas>
+        <canvas id="priorityChart" width="800" height="200"
+            style="width: 100%; max-width: 150px; height: 150px;"></canvas>
+        <canvas id="participantsChart" width="800" height="400"
+            style="width: 100%; max-width: 600px; height: 500px;"></canvas>
+    </div>
+</div>
+<div id="create-event" class="tab-content">
+    {% component 'createEvent' %}
+</div>
+<div id="create-news" class="tab-content">
+    {% component 'createNews' %}
+</div>
+
+<script>
+    const dataStatus = {{ results| raw }};
+    const dataEvents = {{ events| raw }};
+
+    console.log(dataStatus);
+    console.log(dataEvents);
+    // Функция для построения диаграммы очков команд
+    function drawTeamScoresChart(data) {
+        const aggregatedData = data.reduce((acc, item) => {
+            if (!acc[item.winner_name]) {
+                acc[item.winner_name] = {
+                    score: 0
+                };
+            }
+            acc[item.winner_name].score += item.score;
+            return acc;
+        }, {});
+
+        const labels = Object.keys(aggregatedData);
+        const scores = Object.values(aggregatedData).map(item => item.score);
+
+        const config = {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Очки',
+                    data: scores,
+                    backgroundColor: 'rgba(75, 192, 192, 0.4)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Распределение очков команд'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        const ctx = document.getElementById('scoreChart').getContext('2d');
+        new Chart(ctx, config);
+    }
+
+    // Функция для построения диаграммы статусов задач
+    function drawTaskStatusChart(data) {
+        const statusCounts = data.reduce((acc, item) => {
+            acc[item.status] = (acc[item.status] || 0) + 1;
+            return acc;
+        }, {});
+
+        const labels = Object.keys(statusCounts);
+        const counts = Object.values(statusCounts);
+
+        const config = {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Количество задач',
+                    data: counts,
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(255, 159, 64, 0.6)',
+                        'rgba(153, 102, 255, 0.6)',
+                        'rgba(255, 99, 132, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Распределение задач по статусу'
+                    }
+                }
+            }
+        };
+
+        const ctx = document.getElementById('statusChart').getContext('2d');
+        new Chart(ctx, config);
+    }
+
+    function renderParticipantsChart(data) {
+        const participantsByMonth = data.reduce((acc, event) => {
+            const date = new Date(event.date_from);
+            const month = date.toLocaleString("default", {
+                month: "long",
+                year: "numeric"
+            });
+
+            acc[month] = (acc[month] || 0) + event.participants; // Суммируем участников для каждого месяца
+            return acc;
+        }, {});
+
+        // Преобразование данных для графика
+        const labels = Object.keys(participantsByMonth); // Названия месяцев
+        const participants = Object.values(participantsByMonth); // Количество участников
+
+        // Конфигурация графика
+        const config = {
+            type: 'line', // Линейный график
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Количество участников',
+                    data: participants,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderWidth: 2,
+                    tension: 0.3, // Гладкость линии
+                    fill: true // Заполнение под графиком
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Количество участников по месяцам'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        // Рендеринг графика
+        const ctx = document.getElementById('participantsChart').getContext('2d');
+        new Chart(ctx, config);
+    }
+
+
+    function drawPriorityChart(data) {
+        const priorityCounts = data.reduce((acc, item) => {
+            acc[item.priority] = (acc[item.priority] || 0) + 1;
+            return acc;
+        }, {});
+
+        const labels = Object.keys(priorityCounts);
+        const counts = Object.values(priorityCounts);
+
+        // Конфигурация графика
+        const config = {
+            type: 'pie', // Круговая диаграмма
+            data: {
+                labels: labels.map(label => `Priority ${label}`), // Метим приоритеты
+                datasets: [{
+                    label: 'Количество задач',
+                    data: counts,
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.6)', // Приоритет 1
+                        'rgba(255, 159, 64, 0.6)', // Приоритет 2
+                        'rgba(153, 102, 255, 0.6)', // Приоритет 3
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(153, 102, 255, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Доли задач по приоритету'
+                    }
+                }
+            }
+        };
+
+        // Рендеринг графика
+        const ctx = document.getElementById('priorityChart').getContext('2d');
+        new Chart(ctx, config);
+    }
+
+
+    // Вызов функций
+    drawPriorityChart(dataEvents);
+    drawTeamScoresChart(dataStatus);
+    drawTaskStatusChart(dataEvents);
+    renderParticipantsChart(dataEvents);
+</script>

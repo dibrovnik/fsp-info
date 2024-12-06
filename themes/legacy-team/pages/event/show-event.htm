@@ -1,0 +1,20 @@
+##
+title = "Мероприятие"
+url = "/event/preview/:id"
+layout = "default"
+description = "Welcome to the vanilla theme for October CMS!"
+hidden = "0"
+
+[acceptEvent]
+==
+
+<h1>{{event.name}}</h1>
+<p>Инициатор: {{event.agent.user.first_name}} {{event.agent.user.last_name}} {{event.agent.user.email}}</p>
+<p>Уровень мероприятия: {{event.getPriorityLabelAttribute()}}</p>
+<p>Описание мероприятия: {{event.description}}</p>
+<p>Краткое описание мероприятия: {{event.short_description}}</p>
+<p>Даты проведения: с {{event.date_from}} по {{event.date_to}}</p>
+<p>Адрес проведения: {% if event.address %}{{event.address}}{%else%}Онлайн{%endif%}</p>
+<button type="button" class="btn btn-primary">Утвердить</button>
+<button type="button" class="btn btn-secondary">Ответить с комментарием</button>
+<a href="/event/edit/{{event.id}}" class="btn btn-secondary">Редактировать мероприятие</a>

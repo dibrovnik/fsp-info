@@ -1,0 +1,25 @@
+columns:
+    id:
+        label: id
+        type: number
+    region_id:
+        label: region_id
+        type: number
+    title:
+        label: title
+        type: text
+    content:
+        label: content
+        type: text
+    link:
+        label: link
+        type: text
+    short_description:
+        label: short_description
+        type: text
+    created_at:
+        label: created_at
+        type: datetime
+    updated_at:
+        label: updated_at
+        type: datetime

@@ -1,0 +1,21 @@
+fields:
+    region_id:
+        label: 'Region id'
+        span: auto
+        type: number
+    title:
+        label: Title
+        span: auto
+        type: text
+    content:
+        label: Content
+        span: auto
+        type: textarea
+    link:
+        label: Link
+        span: auto
+        type: text
+    short_description:
+        label: 'Short description'
+        span: auto
+        type: textarea

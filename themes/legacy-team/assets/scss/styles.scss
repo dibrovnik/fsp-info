@@ -1,0 +1,75 @@
+@import "reset";
+@import "typography";
+@import "vars";
+@import "header";
+@import "footer";
+@import "hero";
+@import "map";
+@import "calendar";
+@import "profile";
+
+:root {
+  --display: 1440px;
+  --display-full: 1920px;
+  --padding-inline: 1.25rem;
+}
+
+@mixin screen($min-width) {
+  @media (min-width: $min-width) {
+    @content; // Вставляет содержимое, переданное в миксин
+  }
+}
+
+* {
+  font-family: "Inter";
+  color: #000000;
+}
+
+html {
+  background-color: #fff;
+}
+
+main {
+  display: flex;
+  flex-grow: 1;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.wrapper {
+  @include screen(768px) {
+    --padding-inline: 0.625rem;
+  }
+
+  width: min(var(--display), calc(100% - var(--padding-inline) * 2));
+  margin-inline: auto;
+
+  &--full {
+    width: min(var(--display-full), 100%);
+  }
+}
+
+.btn {
+  padding: 8px 24px;
+  background-color: $blue-color;
+  border-radius: 30px;
+  color: #fff;
+
+  &--white {
+    display: flex;
+    color: $blue-color;
+    text-wrap: nowrap;
+    padding: 10px 25px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    border: 1px solid #bdcfe4;
+    width: fit-content;
+
+    transition: 0.3s;
+  }
+}

@@ -1,0 +1,10 @@
+name: ResultsController
+form: $/legacyteam/fspinfo/models/result/fields.yaml
+modelClass: Legacyteam\FspInfo\Models\Result
+defaultRedirect: legacyteam/fspinfo/resultscontroller
+create:
+    redirect: 'legacyteam/fspinfo/resultscontroller/update/:id'
+    redirectClose: legacyteam/fspinfo/resultscontroller
+update:
+    redirect: legacyteam/fspinfo/resultscontroller
+    redirectClose: legacyteam/fspinfo/resultscontroller

@@ -1,0 +1,14 @@
+##
+title = "Список мероприятий на утверждение"
+url = "event/accept-events"
+layout = "default"
+description = "Welcome to the vanilla theme for October CMS!"
+hidden = "0"
+
+[acceptEvent]
+==
+
+{% for event in events %}
+
+<a href="manage-event/{{event.id}}">{{event.name}}</a>
+{% endfor %}

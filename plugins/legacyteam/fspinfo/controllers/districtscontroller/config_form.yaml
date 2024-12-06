@@ -1,0 +1,10 @@
+name: DistrictsController
+form: $/legacyteam/fspinfo/models/district/fields.yaml
+modelClass: Legacyteam\FspInfo\Models\District
+defaultRedirect: legacyteam/fspinfo/districtscontroller
+create:
+    redirect: 'legacyteam/fspinfo/districtscontroller/update/:id'
+    redirectClose: legacyteam/fspinfo/districtscontroller
+update:
+    redirect: legacyteam/fspinfo/districtscontroller
+    redirectClose: legacyteam/fspinfo/districtscontroller

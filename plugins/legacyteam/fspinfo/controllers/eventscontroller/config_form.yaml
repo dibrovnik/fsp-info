@@ -1,0 +1,10 @@
+name: EventsController
+form: $/legacyteam/fspinfo/models/event/fields.yaml
+modelClass: Legacyteam\FspInfo\Models\Event
+defaultRedirect: legacyteam/fspinfo/eventscontroller
+create:
+    redirect: 'legacyteam/fspinfo/eventscontroller/update/:id'
+    redirectClose: legacyteam/fspinfo/eventscontroller
+update:
+    redirect: legacyteam/fspinfo/eventscontroller
+    redirectClose: legacyteam/fspinfo/eventscontroller

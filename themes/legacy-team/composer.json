@@ -1,0 +1,8 @@
+{
+    "name": "legacyteam/fsp-info-theme",
+    "type": "october-theme",
+    "description": "fsp-info",
+    "require": {
+        "composer/installers": "~1.0"
+    }
+}

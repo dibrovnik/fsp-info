@@ -1,0 +1,90 @@
+<form id="event-create-form" data-request-flash data-request="onEditEvent" enctype="multipart/form-data" method="POST"
+    class="d-flex gap-3 flex-column">
+    <input type="text" name="event_id" hidden value="{{event.id}}">
+    <input class="form-control" type="text" placeholder="Название мероприятия" required name="name"
+        value="{{event.name}}">
+    <textarea class="form-control" placeholder="Описание мероприятия" required name="description"
+        value="">{{event.description}}</textarea>
+    <textarea class="form-control" placeholder="Краткое описание" name="short-description"
+        value="">{{event.short_description}}</textarea>
+    <input class="form-control daterange" type="text" name="daterange" placeholder="Период присутствия" value=""
+        data-start-date="{{event.date_from}}" data-finish-date="{{event.date_to}}" />
+    <input class="form-control" type="text" placeholder="Адрес" name="address" id="address" {% if event.address
+        %}value="{{event.address}}" {%endif%}>
+    <div class="form-check" {% if event.address %}checked{%endif%}>
+        <label class="form-check-label" for="online-event">Онлайн мероприятие</label>
+        <input class="form-check-input" type="checkbox" name="is_online" id="online-event">
+    </div>
+    <select name="priority" id="">
+        <option value="">Укажите приоритет</option>
+        <option value="0" {% if event.priority==0 %}selected{%endif%}>Не указан</option>
+        <option value="1" {% if event.priority==1 %}selected{%endif%}>Муниципальный (городской)</option>
+        <option value="2" {% if event.priority==2 %}selected{%endif%}>Региональный</option>
+        <option value="3" {% if event.priority==3 %}selected{%endif%}>Федеральный</option>
+        <option value="4" {% if event.priority==4 %}selected{%endif%}>Всероссийский</option>
+    </select>
+    <label for="file">Файл положения</label>
+    <input name="position-files" id="file" type="file" class="form-control" accept=".pdf" />
+    <button class="btn btn-primary" data-attach-loading>Сохранить мероприятие</button>
+    <a href="/event/preview/{{event.id}}" class="btn btn-secondary">Назад к проверке мероприятия</a>
+</form>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment/min/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<script>
+    function resetForm() {
+        var frm = document.getElementById('event-create-form');
+        frm.submit(); // Submit the form
+        frm.reset();  // Reset all form data
+        return false; // Prevent page refresh
+    }
+    $(document).ready(function () {
+        // Инициализация Date Range Picker
+        $('.daterange').each(function () {
+            // Получаем данные из атрибутов
+            const startDate = $(this).data('start-date');
+            const finishDate = $(this).data('finish-date');
+
+            // Инициализируем Date Range Picker
+            $(this).daterangepicker({
+                locale: {
+                    format: 'DD.MM.YYYY',
+                    separator: ' - ',
+                    applyLabel: 'Применить',
+                    cancelLabel: 'Отмена',
+                    fromLabel: 'От',
+                    toLabel: 'До',
+                    customRangeLabel: 'Свой диапазон',
+                    daysOfWeek: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+                    monthNames: [
+                        'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+                        'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+                    ],
+                    firstDay: 1
+                },
+                startDate: startDate ? moment(startDate, 'YYYY-MM-DD') : moment(), // Если startDate есть, используем его
+                endDate: finishDate ? moment(finishDate, 'YYYY-MM-DD') : moment().add(1, 'days'), // Если finishDate есть, используем его
+                minDate: moment(), // Минимальная дата
+                opens: 'center', // Расположение окна
+                drops: 'down' // Выпадающий список вниз
+            });
+        });
+
+
+        // Обработка события выбора чекбокса
+        $('#online-event').on('change', function () {
+            const isChecked = $(this).is(':checked');
+            const addressField = $('#address');
+
+            if (isChecked) {
+                addressField.prop('disabled', true).removeAttr('required');
+            } else {
+                addressField.prop('disabled', false).attr('required', 'required');
+            }
+        });
+    });
+</script>

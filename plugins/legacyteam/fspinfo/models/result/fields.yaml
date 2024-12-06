@@ -1,0 +1,21 @@
+fields:
+    event_id:
+        label: 'Event id'
+        span: auto
+        type: number
+    winner_name:
+        label: 'Winner name'
+        span: auto
+        type: text
+    contact_info:
+        label: 'Contact info'
+        span: auto
+        type: text
+    position:
+        label: Position
+        span: auto
+        type: number
+    score:
+        label: Score
+        span: auto
+        type: number

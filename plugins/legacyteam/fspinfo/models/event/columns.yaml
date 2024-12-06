@@ -1,0 +1,40 @@
+columns:
+    id:
+        label: id
+        type: number
+    name:
+        label: name
+        type: text
+    description:
+        label: description
+        type: text
+    agent_id:
+        label: agent_id
+        type: number
+    status:
+        label: status
+        type: number
+    date_from:
+        label: date_from
+        type: text
+    date_to:
+        label: date_to
+        type: text
+    created_at:
+        label: created_at
+        type: datetime
+    updated_at:
+        label: updated_at
+        type: datetime
+    address:
+        label: address
+        type: text
+    short_description:
+        label: short_description
+        type: text
+    priority:
+        label: priority
+        type: number
+    participants:
+        label: participants
+        type: number

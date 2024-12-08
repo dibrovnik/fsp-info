@@ -1,0 +1,82 @@
+.map {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+.map p {
+  font-weight: 800;
+}
+
+.tooltip {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: absolute;
+  gap: 20px;
+  background-color: #d9d9d9;
+  border-radius: 20px;
+  padding: 17px;
+  display: none;
+  z-index: 1000;
+  text-wrap: nowrap;
+}
+.tooltip a {
+  text-decoration: underline;
+}
+.tooltip p {
+  font-weight: 800;
+}
+.tooltip span {
+  color: #2185fb;
+}
+@media (max-width: 768px) {
+  .tooltip {
+    padding: 10px;
+  }
+  .tooltip a {
+    font-size: 14px;
+    font-weight: 800;
+    color: #2185fb;
+  }
+  .tooltip p {
+    font-size: 14px;
+  }
+  .tooltip span {
+    font-size: 14px;
+    color: #2185fb;
+  }
+}
+@media (max-width: 560px) {
+  .tooltip {
+    padding: 10px;
+    gap: 10px;
+  }
+  .tooltip a {
+    font-size: 8px;
+    font-weight: 800;
+    color: #2185fb;
+  }
+  .tooltip p {
+    font-size: 8px;
+  }
+  .tooltip span {
+    font-size: 8px;
+    color: #2185fb;
+  }
+}
+
+.tooltip.show {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}

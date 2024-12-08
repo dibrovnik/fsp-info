@@ -1,0 +1,9 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  height: 56px;
+  background-color: red;
+}
+.header__panel {
+  display: flex;
+}

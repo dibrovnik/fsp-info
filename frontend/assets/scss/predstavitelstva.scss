@@ -1,0 +1,118 @@
+.accordion {
+  margin: 0 auto 40px 0;
+  &__title {
+    margin-top: 30px;
+  }
+}
+.accordion-item {
+  cursor: default;
+}
+
+.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  // padding: 10px 0px;
+  width: 100%;
+  margin-bottom: 20px;
+  // font-size: 32px;
+}
+
+.accordion-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.accordion-content.open {
+  max-height: 500px;
+  opacity: 1;
+}
+
+.accordion-subitem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 30px;
+
+  @media (max-width: 768px) {
+    .btn--white-round {
+      padding: 10px 15px;
+    }
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.btn--white-round:hover {
+  background: $blue;
+  color: #fff;
+}
+
+.icon {
+  transition: transform 0.3s ease;
+}
+
+.icon.rotate {
+  transform: rotate(180deg);
+}
+
+.search-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  margin: 32px 0 40px 0;
+  width: 100%;
+  height: 56px;
+  border-radius: 4px;
+  background: #ffffff;
+
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.08);
+}
+.search-bar svg {
+  margin-right: 1rem;
+}
+.search-bar input {
+  flex-grow: 1;
+  height: 100%;
+}
+.search-bar input::placeholder {
+  color: #bdcfe4;
+}
+.search-result {
+  top: 110%;
+  left: 0;
+  padding: 1.25rem;
+  background: #fff;
+  border-radius: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease-in-out;
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+.result-item:hover {
+  border: 1px solid #bdcfe4;
+  padding: 0.25rem 1rem;
+  border-radius: 0.625rem;
+}
+.result-item {
+  border-radius: 0.625rem;
+  border: 1px solid transparent;
+  padding: 0.25rem 1rem 0.25rem 0;
+  transition: 0.3s;
+}

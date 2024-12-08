@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteRule ^regions/?$ regions.php [L]
+RewriteRule ^news/?$ news.php?page=1 [L]
+RewriteRule ^region/([A-Za-z0-9-]+)$ region.php?region_id=$1 [L,QSA]
+RewriteRule ^event/([A-Za-z0-9-]+)$ event.php?event_id=$1 [L,QSA]
+RewriteRule ^news/([A-Za-z0-9-]+)$ new.php?new_id=$1 [L,QSA]

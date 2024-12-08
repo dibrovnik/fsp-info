@@ -1,0 +1,254 @@
+@mixin screen($max-width) {
+  @media (max-width: $max-width) {
+    @content; // Вставляет содержимое, переданное в миксин
+  }
+}
+.fc-header-toolbar {
+  @include screen(768px) {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+.calendar {
+  margin-bottom: 60px;
+}
+
+.fc-h-event .fc-event-title {
+  white-space: nowrap;
+}
+.volunteerPage {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 20px;
+  margin-bottom: 60px;
+
+  & > img {
+    width: 100%;
+    border-radius: 0.9375rem;
+    aspect-ratio: 5;
+    object-position: center center;
+    object-fit: cover;
+    @include screen(1140px) {
+      aspect-ratio: 3;
+    }
+  }
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 1.25rem;
+    transform: translateY(-32%);
+    @include screen(1140px) {
+      flex-direction: column;
+      transform: translateY(-12.5%);
+
+      align-items: center;
+    }
+    &__name {
+      display: flex;
+      align-items: end;
+      gap: 2rem;
+      padding-left: 3.5rem;
+      @include screen(1140px) {
+        padding-left: 0px;
+        align-items: center;
+      }
+      &__title__flex {
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+        flex-wrap: wrap;
+        @include screen(576px) {
+          display: none;
+        }
+        &__line {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          gap: 1rem;
+        }
+      }
+      img {
+        border: 6px solid #fff;
+        width: 8.75rem;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center center;
+      }
+    }
+    &__buttons {
+      display: flex;
+      gap: 1.5rem;
+      padding-right: 1.5rem;
+      @include screen(576px) {
+        flex-direction: column;
+        align-items: center;
+      }
+      .btn--transparent {
+        color: #0057ff;
+        border: 2px solid #0057ff;
+        position: relative;
+        overflow: clip;
+        &:hover,
+        &:focus,
+        &:active {
+          color: #fff;
+          &::before {
+            content: "";
+            animation-name: ripple;
+            animation-duration: 3s;
+          }
+        }
+      }
+      .volunteerPage__info__name__title__flex__line {
+        display: none;
+        @include screen(576px) {
+          display: flex;
+        }
+      }
+
+      .btn {
+        transition: 0.3s;
+        box-shadow: 0px 3px 5px 0px rgba(142, 165, 192, 0.2),
+          0px 6px 10px 0px rgba(142, 165, 192, 0.14),
+          0px 1px 18px 0px rgba(142, 165, 192, 0.12);
+      }
+      .btn:hover {
+        background-color: #fff;
+        color: $blue;
+      }
+    }
+  }
+}
+.contacts {
+  margin-bottom: 60px;
+}
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+.section-text {
+  gap: 35px;
+  margin-bottom: 20px;
+  &__title {
+    margin-bottom: 35px;
+  }
+  &__title-contacts {
+    margin-bottom: 20px;
+  }
+}
+
+.persons-grid {
+  --columns-desktop: 4;
+  --columns-mobile: 2;
+  --collumn-min-size: 16rem;
+  --gap: 1rem;
+
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(
+      max(
+        var(--collumn-min-size),
+        calc(
+          (100% - (var(--gap) * (var(--columns-desktop) - 1))) /
+            var(--columns-desktop)
+        )
+      ),
+      1fr
+    )
+  );
+  gap: var(--gap);
+  @media (width < 768px) {
+    grid-template-columns: repeat(var(--columns-mobile), minmax(0, 1fr));
+  }
+
+  &__card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    @include screen(1250px) {
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    &__img {
+      padding: 2px 0 2px 0;
+      width: fit-content;
+      flex-shrink: 0;
+      img {
+        object-fit: cover;
+        aspect-ratio: 1/1;
+        height: 83px;
+        border-radius: 10px;
+      }
+    }
+
+    &__name {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      @include screen(1250px) {
+        justify-content: center;
+        align-items: center;
+      }
+      .btn--white {
+        padding: 10px 15px;
+        white-space: wrap;
+        transition: 0.3s;
+      }
+      .btn--white:hover {
+        background-color: $blue;
+        color: #fff;
+      }
+    }
+  }
+}
+
+.contacts-grid {
+  --columns-desktop: 4;
+  --columns-mobile: 1;
+  --collumn-min-size: 16rem;
+  --gap: 1rem;
+
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(
+      max(
+        var(--collumn-min-size),
+        calc(
+          (100% - (var(--gap) * (var(--columns-desktop) - 1))) /
+            var(--columns-desktop)
+        )
+      ),
+      1fr
+    )
+  );
+  gap: var(--gap);
+  @media (width < 768px) {
+    grid-template-columns: repeat(var(--columns-mobile), minmax(0, 1fr));
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 20px;
+
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.08);
+
+    &__number {
+      width: 100%;
+      padding-top: 20px;
+      border-top: 1px solid #515151;
+    }
+  }
+}

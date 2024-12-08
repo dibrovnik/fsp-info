@@ -14,7 +14,9 @@ class Plugin extends PluginBase
      */
     public function register()
     {
+        $this->registerConsoleCommand('fspinfo.importevents', \Legacyteam\FspInfo\Console\ImportEvents::class);
     }
+
 
     /**
      * boot method, called right before the request route.
@@ -28,7 +30,7 @@ class Plugin extends PluginBase
                 Db::table('legacyteam_fspinfo_agents')->insert([
                     'user_id' => $user->id,
                     'role' => 0,
-                    'region_id' => 0,
+                    'region_id' => post('region_id'),
                     'verification_status' => 0,
                     'created_at' => now(),
                     'updated_at' => now(),
@@ -54,6 +56,7 @@ class Plugin extends PluginBase
             'Legacyteam\fspinfo\Components\CreateNewsComponent' => 'createNews',
 
             'Legacyteam\fspinfo\Components\CreateResultComponent' => 'createResult',
+            'Legacyteam\fspinfo\Components\RedirectComponent' => 'redirectToMain',
         ];
     }
 

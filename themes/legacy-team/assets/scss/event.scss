@@ -1,0 +1,206 @@
+.event-show {
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        align-self: stretch;
+    }
+
+    &__header-buttons {
+        display: flex;
+        gap: 8px;
+        flex-direction: row;
+    }
+
+    &__status-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    &__edit-btn {
+
+        display: flex;
+        padding: 10px 25px;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+
+        border-radius: 4px;
+        border: var(--stroke-weight-1, 1px) solid var(--leader-id-ru-white, #FFF);
+        background: var(--leader-id-ru-white, #FFF);
+        box-shadow: 0px 3px 5px 0px rgba(142, 165, 192, 0.20), 0px 6px 10px 0px rgba(142, 165, 192, 0.14), 0px 1px 18px 0px rgba(142, 165, 192, 0.12);
+
+        color: var(--leader-id-ru-dodger-blue, var(--color-azure-56, #2185FB));
+        text-align: center;
+
+        /* leader-id.ru/Inter/Bold */
+        font-family: var(--font-family-Font-1, Inter);
+        font-size: 15.25px;
+        font-style: normal;
+        font-weight: var(--font-weight-700, 700);
+        line-height: var(--line-height-18, 18px);
+        /* 118.033% */
+
+        svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        transition: all 0.3 ease-in-out;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    &__hero {
+        margin-top: 24px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 174px;
+        align-self: stretch;
+
+        p {
+            color: #3F3F55;
+            font-family: Inter;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 20px;
+            /* 125% */
+        }
+
+        &-content {
+            margin-top: 24px;
+            display: flex;
+            flex-direction: column;
+            // gap: 4px;
+            gap: 8px;
+        }
+
+        &-title {
+            color: #000;
+            font-family: Inter;
+            font-size: 38px;
+            font-style: normal;
+            font-weight: 800;
+            line-height: normal;
+        }
+
+        &-footer {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        &-date {
+            display: flex;
+            height: 48px;
+            align-items: center;
+            gap: 12px;
+
+            svg {
+                width: 18.333px;
+                height: 18.333px;
+            }
+
+            color: #3F3F55;
+            font-family: Inter;
+            font-size: 15.5px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 20px;
+            /* 129.032% */
+        }
+
+        &-image {
+            width: 495px;
+            height: 300px;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.30);
+            overflow: hidden;
+
+            img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+    &__descr {
+        display: flex;
+        width: 804px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        margin-top: 40px;
+
+        h2 {
+            color: #000;
+            font-family: Inter;
+            font-size: 32px;
+            font-style: normal;
+            font-weight: 800;
+            line-height: normal;
+        }
+
+        p {
+            color: #3F3F55;
+            font-family: Inter;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 20px;
+            /* 125% */
+        }
+    }
+
+    &__messanger {
+        margin-top: 40px;
+        display: flex;
+        min-height: 113px;
+        padding: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        align-self: stretch;
+
+        border-radius: 10px;
+        background: #FFF;
+        box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.08);
+
+        h2 {
+            color: #141414;
+            font-family: Inter;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+        }
+
+
+    }
+
+    &__messanger-message {
+        width: 100%;
+        padding-bottom: 8px;
+        margin-bottom: 8px;
+        border-bottom: 1px solid #3F3F55;
+
+        &:last-child {
+            padding-bottom: 0;
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+    }
+
+    .send-message {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+}

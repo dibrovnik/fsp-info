@@ -10,6 +10,7 @@ use RainLab\User\Models\UserLog;
 use RainLab\User\Helpers\User as UserHelper;
 use Cms\Classes\ComponentBase;
 use NotFoundException;
+use Legacyteam\FspInfo\Models\Region;
 
 /**
  * Registration displays registration forms
@@ -130,5 +131,10 @@ class Registration extends ComponentBase
     public function canRegister(): bool
     {
         return Setting::get('allow_registration');
+    }
+
+    public function onRun()
+    {
+        $this->page['allRegions'] = Region::getAllRegions();
     }
 }

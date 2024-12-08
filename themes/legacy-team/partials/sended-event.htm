@@ -1,0 +1,27 @@
+[accountComponent]
+==
+<h1 class="profile__title mt-20">Список заявок</h1>
+<div class="sended-events">
+    <div class="sended-events__list">
+        {% for event in allEvents |reverse %}
+        <div class="sended-events__item">
+            <div class="sended-events__item-name">{{event.name}}</div>
+            <div class="sended-events__item-info">{{event.agent.region.name}}</div>
+            <div class="sended-events__item-info">{{event.getPriorityLabelAttribute()}}</div>
+            <div class="sended-events__item-info">
+                <div class="sended-events__date">Дата подачи: <span class="fw-700">{{event.created_at}}</span></div>
+                {% if event.status == 0 %}
+                <div class="sended-events__status pending">На рассмотрении</div>
+                {% elseif event.status == 1 %}
+                <div class="sended-events__status approved">Согласована</div>
+                {% elseif event.status == 2 %}
+                <div class="sended-events__status rejected">Отменена</div>
+                {% elseif event.status == 3 %}
+                <div class="sended-events__status need-edit">Требует действия</div>
+                {% endif %}
+            </div>
+            <a href="/event/preview/{{event.id}}" class="sended-events__item-button">Смотреть детали заявки</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>

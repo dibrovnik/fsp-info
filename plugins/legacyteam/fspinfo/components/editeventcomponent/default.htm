@@ -1,21 +1,82 @@
-<form id="event-create-form" data-request-flash data-request="onEditEvent" enctype="multipart/form-data" method="POST"
-    class="d-flex gap-3 flex-column">
+<h1 class="mb-4">Редактирование информации о мероприятии</h1>
+<div class="edit-region__header">
+    <a href="/event/preview/{{event.id}}" class="edit-region__back">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <g clip-path="url(#clip0_34_5223)">
+                <path
+                    d="M4.94266 5.606L1.02366 9.525C0.387283 10.1919 0.0322266 11.0782 0.0322266 12C0.0322266 12.9218 0.387283 13.8081 1.02366 14.475L4.94266 18.394C5.08103 18.5373 5.24655 18.6515 5.42955 18.7302C5.61256 18.8088 5.80939 18.8501 6.00856 18.8519C6.20773 18.8536 6.40524 18.8157 6.58959 18.7402C6.77393 18.6648 6.94141 18.5534 7.08225 18.4126C7.22309 18.2718 7.33447 18.1043 7.40989 17.9199C7.48531 17.7356 7.52326 17.5381 7.52153 17.3389C7.5198 17.1397 7.47842 16.9429 7.39981 16.7599C7.3212 16.5769 7.20692 16.4114 7.06366 16.273L4.28466 13.492L22.5347 13.469C22.9325 13.469 23.314 13.311 23.5953 13.0297C23.8766 12.7484 24.0347 12.3668 24.0347 11.969C24.0347 11.5712 23.8766 11.1896 23.5953 10.9083C23.314 10.627 22.9325 10.469 22.5347 10.469L4.29966 10.492L7.06366 7.727C7.3369 7.44409 7.48809 7.06519 7.48467 6.6719C7.48125 6.2786 7.3235 5.90238 7.04539 5.62427C6.76727 5.34616 6.39106 5.1884 5.99776 5.18499C5.60447 5.18157 5.22556 5.33276 4.94266 5.606Z"
+                    fill="#0057FF" />
+            </g>
+            <defs>
+                <clipPath id="clip0_34_5223">
+                    <rect width="24" height="24" fill="white" />
+                </clipPath>
+            </defs>
+        </svg>
+        Вернуться к мероприятию
+    </a>
+</div>
+{% if event.comments %}
+<div class="event-show__messanger">
+    <h2>Комментарии по заявке</h2>
+    {% for message in event.comments %}
+    <div class="event-show__messanger-message"><span class="fw-800">От:
+            {{message.sender.user.first_name}} {{message.sender.user.last_name}}</span>
+        <br>
+        {{message.text}}
+    </div>
+    {% endfor %}
+</div>
+{%endif%}
+
+<form id="event-create-form" data-request-flash data-request="onEditEvent" data-request-files method="POST"
+    class="custom-form mt-20">
+    <!-- Блок для загрузки фото -->
+    <div class="editor-view collapse show banner-image">
+        {% if event.photo %}
+        <img src="{{event.photo.getPath}}" alt="Баннер региона" class="banner-preview" id="news-photo-preview" />
+        {%else%}
+        <img src="{{'assets/img/download-photo.jpg '|theme }}" alt="Баннер региона" id="news-photo-preview"
+            class="banner-preview" />
+        {%endif%}
+        <input name="photo" type="file" accept=".jpg,.jpeg,.bmp,.png,.webp,.gif" id="news-photo-input"
+            class="form-control banner-input" style="display: none;" />
+    </div>
+    нажмите чтобы добавить картинку новости
+    <style>
+        .editor-view {
+            width: 200px;
+            height: 200px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    </style>
     <input type="text" name="event_id" hidden value="{{event.id}}">
     <input class="form-control" type="text" placeholder="Название мероприятия" required name="name"
         value="{{event.name}}">
     <textarea class="form-control" placeholder="Описание мероприятия" required name="description"
         value="">{{event.description}}</textarea>
-    <textarea class="form-control" placeholder="Краткое описание" name="short-description"
-        value="">{{event.short_description}}</textarea>
-    <input class="form-control daterange" type="text" name="daterange" placeholder="Период присутствия" value=""
-        data-start-date="{{event.date_from}}" data-finish-date="{{event.date_to}}" />
-    <input class="form-control" type="text" placeholder="Адрес" name="address" id="address" {% if event.address
-        %}value="{{event.address}}" {%endif%}>
-    <div class="form-check" {% if event.address %}checked{%endif%}>
+    <!-- <textarea class="form-control" placeholder="Краткое описание" name="short-description"
+        value="">{{event.short_description}}</textarea> -->
+    <input class="form-control" type="number" placeholder="Количество участников" required name="participants"
+        id="participants" value="{{event.participants}}">
+    <input class="form-control daterange" type="text" name="daterange" placeholder="Даты проведения мероприятия"
+        value="" data-start-date="{{event.date_from}}" data-finish-date="{{event.date_to}}" />
+    <div class="form-check">
         <label class="form-check-label" for="online-event">Онлайн мероприятие</label>
-        <input class="form-check-input" type="checkbox" name="is_online" id="online-event">
+        <input class="form-check-input" type="checkbox" name="is_online" id="online-event" {% if event.address==""
+            %}checked{%endif%}>
     </div>
-    <select name="priority" id="">
+    <input class="form-control" type="text" placeholder="Адрес" name="address" id="address" {% if event.address
+        %}value="{{event.address}}" {%endif%} {% if event.address=="" %}disabled{%endif%}>
+    <select name="priority" id="" class="form-control">
         <option value="">Укажите приоритет</option>
         <option value="0" {% if event.priority==0 %}selected{%endif%}>Не указан</option>
         <option value="1" {% if event.priority==1 %}selected{%endif%}>Муниципальный (городской)</option>
@@ -23,11 +84,24 @@
         <option value="3" {% if event.priority==3 %}selected{%endif%}>Федеральный</option>
         <option value="4" {% if event.priority==4 %}selected{%endif%}>Всероссийский</option>
     </select>
-    <label for="file">Файл положения</label>
+    <label for="file">Файлы:</label>
+    <!-- Вывод списка загруженных файлов -->
+    <div class="uploaded-files">
+        {% if event.attachment %}
+        <p>
+            <a href="{{ event.attachment.getPath }}" target="_blank">Скачать файл <span
+                    style="color: blue; text-decoration: underline;">{{event.attachment.file_name}}</span></a>
+        </p>
+        {% else %}
+        <p>Файлы положения отсутствуют.</p>
+        {% endif %}
+    </div>
+
     <input name="position-files" id="file" type="file" class="form-control" accept=".pdf" />
     <button class="btn btn-primary" data-attach-loading>Сохранить мероприятие</button>
-    <a href="/event/preview/{{event.id}}" class="btn btn-secondary">Назад к проверке мероприятия</a>
+    <!-- <a href="/event/preview/{{event.id}}" class="btn btn-secondary">Назад к проверке мероприятия</a> -->
 </form>
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
@@ -85,6 +159,49 @@
             } else {
                 addressField.prop('disabled', false).attr('required', 'required');
             }
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const newsInput = document.getElementById('news-photo-input');
+        const newsPreview = document.getElementById('news-photo-preview');
+
+        // Клик на баннер
+        newsPreview.addEventListener('click', () => {
+            newsInput.click();
+        });
+
+        // Предпросмотр баннера и автоматическая отправка формы
+        newsInput.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    newsPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.dirtyforms/2.0.0/jquery.dirtyforms.min.js"></script>
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/jquery.dirtyforms/2.0.0/jquery.dirtyforms.min.css" />
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('event-create-form');
+
+        // Активируем DirtyForms на форме
+        $(form).dirtyForms({
+            preventLeaving: true
+        });
+
+        // Отключение предупреждения при сохранении формы
+        form.addEventListener('submit', function () {
+            $(form).dirtyForms('setClean'); // Помечаем форму как "чистую"
         });
     });
 </script>

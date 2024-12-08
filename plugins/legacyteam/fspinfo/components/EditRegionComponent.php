@@ -10,6 +10,8 @@ use Log;
 use Flash;
 use Carbon;
 use Request;
+use Files;
+use System\Models\File;
 use Auth;
 
 /**
@@ -72,6 +74,68 @@ class EditRegionComponent extends ComponentBase
             Flash::error('Произошла ошибка при сохранении региона: ' . $e->getMessage());
             Log::error('Произошла ошибка при сохранении региона: ' . $e->getMessage());
         }
+    }
+
+    public function onUploadAvatar()
+    {
+
+        $region_id = $this->param('id');
+        $region = Region::getRegion($region_id);
+
+        $avatarFile = Input::file('avatar');
+
+        if (!$avatarFile) {
+            Flash::error('Файл не найден. Пожалуйста, выберите файл для загрузки.');
+            return;
+        }
+
+        // Логирование для отладки
+        Log::info("Загружаемый файл аватара: " . $avatarFile->getClientOriginalName());
+
+        if (!$region) {
+            Flash::error('Регион не найден.');
+            return;
+        }
+
+        // Создание объекта файла
+        $file = new File();
+        $file->data = $avatarFile;
+        $file->is_public = true;
+        $file->save();
+
+        // Привязка файла к аватару региона
+        $region->avatar()->add($file);
+
+        Flash::success('Аватар успешно загружен.');
+    }
+
+    public function onUploadBanner()
+    {
+        $region_id = $this->param('id');
+        $region = Region::getRegion($region_id);
+
+        if (!$region) {
+            Flash::error('Регион не найден.');
+            return;
+        }
+
+        // Получение файла баннера
+        $bannerFile = Input::file('banner');
+        if (!$bannerFile) {
+            Flash::error('Файл не найден. Пожалуйста, выберите файл для загрузки.');
+            return;
+        }
+
+        // Создание объекта файла и сохранение
+        $file = new \System\Models\File();
+        $file->data = $bannerFile;
+        $file->is_public = true;
+        $file->save();
+
+        // Привязка файла к баннеру региона
+        $region->banner()->add($file);
+
+        Flash::success('Баннер успешно обновлён.');
     }
 
 }

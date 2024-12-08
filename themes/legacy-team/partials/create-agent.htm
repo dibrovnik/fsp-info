@@ -1,0 +1,16 @@
+<form data-request="onAddAgent" class="custom-form" data-request-flash>
+    <input type="text" name="first_name" id="first_name" class="form-control" required placeholder="Имя представителя">
+    <input type="text" name="last_name" id="last_name" class="form-control" required
+        placeholder="Фамилия представителя">
+    <input type="email" name="email" id="email" class="form-control" required placeholder="Email представителя">
+    <select name="region_id" id="" class="form-control">
+        <option value="">Выберите регион</option>
+        {% for region, key in allRegionsForSelect %}
+        <option value="{{ key }}">{{ region }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit" class="btn btn-light mt-4" data-attach-loading>Создать представителя</button>
+</form>
+
+<!-- Место для отображения информации о новом пользователе -->
+<div id="newAgentInfo"></div>

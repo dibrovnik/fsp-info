@@ -48,10 +48,10 @@ class EditEventComponent extends ComponentBase
             return redirect()->to('/');
         }
 
-        if ($event->agent_id == $agent->id) {
-            Flash::error('Заявка доступна только представителю который ее создал');
-            return redirect()->to('/');
-        }
+        // if ($event->agent_id == $agent->id) {
+        //     Flash::error('Заявка доступна только представителю который ее создал');
+        //     return redirect()->to('/');
+        // }
         
         $this->loadEventData($event_id);
     }
@@ -68,6 +68,7 @@ class EditEventComponent extends ComponentBase
         $event_data = post('event_id');
         $data = post(); // Получение данных из формы
         $file = Input::file('position-files'); // Получение файла из формы
+        $photo = Input::file('photo'); // Получение файла из формы
 
         try {
             $data['agent_id'] = $agent->id;
@@ -80,7 +81,7 @@ class EditEventComponent extends ComponentBase
                 Log::info('date_to ' . $data['date_to']);
             }
             // Создаём мероприятие
-            $event = Event::createOrUpdateEvent($data, $file, $event_data);
+            $event = Event::createOrUpdateEvent($data, $file, $event_data, $photo);
             Log::info('Мероприятие успешно обновлено');
             Flash::success('Мероприятие успешно обновлено');
         } catch (ValidationException $e) {

@@ -40,8 +40,14 @@ class EventsApiController extends ApiController
   }
   public static function getAllEvents()
   {
-      return Event::where('status', 1)->get();
+      return Event::where('status', 1)->with('photo')->get();
   }
+
+  public static function getEvent($event_id)
+  {
+        return Event::where('id', $event_id)->with(['agent', 'photo'])->first(); 
+  }
+
     // public function index()
     // {
     //     $products = Product::get();

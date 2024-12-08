@@ -1,0 +1,10 @@
+<h1>Генерация отчета по округу</h1>
+<form data-request-flash data-request="onCreateOkrugReport" method="POST" class="mt-20 custom-form">
+    <select name="okrug_id" id="okrug_id" class="form-control" required>
+        {% for district in districts %} <!-- Предполагается, что переменная okrugs передается в шаблон -->
+        <option value="{{ district.id }}">{{ district.name }}</option>
+        {% endfor %}
+    </select>
+    <button class="btn btn-primary">Создать отчет о округе</button>
+</form>
+<div id="pdfDownloadLink" class="mt-20"></div>

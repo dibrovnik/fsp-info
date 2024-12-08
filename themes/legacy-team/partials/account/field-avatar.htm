@@ -4,20 +4,10 @@
     data-request-flash>
 
     <input type="hidden" name="message" value="false" />
-
-    <div class="section-title border-bottom d-flex">
-        <h5 class="h4 flex-grow-1">Аватар</h5>
-        <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse"
-            data-bs-target=".{{ collapseClass }}">
-            Edit
-        </button>
+    <div class="editor-view collapse show {{ collapseClass }} avatar-image">
+        <img src="{{ user.getAvatarThumb(256) }}" alt="Profile Picture" class="img-thumbnail" />
     </div>
-
-    <div class="editor-view collapse show {{ collapseClass }}">
-        <img src="{{ user.getAvatarThumb(256) }}" alt="Profile Picture" style="width:128px" class="img-thumbnail" />
-    </div>
-
-    <div class="editor-edit collapse {{ collapseClass }}">
+    <div class="editor-edit">
         <input name="avatar" type="file" value="" class="form-control" accept=".jpg,.jpeg,.bmp,.png,.webp,.gif" />
         <div class="section-actions">
             <button class="btn btn-primary" data-attach-loading type="submit">

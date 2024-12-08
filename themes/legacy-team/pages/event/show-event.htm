@@ -6,15 +6,144 @@ description = "Welcome to the vanilla theme for October CMS!"
 hidden = "0"
 
 [acceptEvent]
+[accountComponent]
 ==
+<div class="edit-region__header">
+    <a href="/account?tab=sended-events" class="edit-region__back">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <g clip-path="url(#clip0_34_5223)">
+                <path
+                    d="M4.94266 5.606L1.02366 9.525C0.387283 10.1919 0.0322266 11.0782 0.0322266 12C0.0322266 12.9218 0.387283 13.8081 1.02366 14.475L4.94266 18.394C5.08103 18.5373 5.24655 18.6515 5.42955 18.7302C5.61256 18.8088 5.80939 18.8501 6.00856 18.8519C6.20773 18.8536 6.40524 18.8157 6.58959 18.7402C6.77393 18.6648 6.94141 18.5534 7.08225 18.4126C7.22309 18.2718 7.33447 18.1043 7.40989 17.9199C7.48531 17.7356 7.52326 17.5381 7.52153 17.3389C7.5198 17.1397 7.47842 16.9429 7.39981 16.7599C7.3212 16.5769 7.20692 16.4114 7.06366 16.273L4.28466 13.492L22.5347 13.469C22.9325 13.469 23.314 13.311 23.5953 13.0297C23.8766 12.7484 24.0347 12.3668 24.0347 11.969C24.0347 11.5712 23.8766 11.1896 23.5953 10.9083C23.314 10.627 22.9325 10.469 22.5347 10.469L4.29966 10.492L7.06366 7.727C7.3369 7.44409 7.48809 7.06519 7.48467 6.6719C7.48125 6.2786 7.3235 5.90238 7.04539 5.62427C6.76727 5.34616 6.39106 5.1884 5.99776 5.18499C5.60447 5.18157 5.22556 5.33276 4.94266 5.606Z"
+                    fill="#0057FF" />
+            </g>
+            <defs>
+                <clipPath id="clip0_34_5223">
+                    <rect width="24" height="24" fill="white" />
+                </clipPath>
+            </defs>
+        </svg>
+        К списку заявок
+    </a>
+</div>
+<div class="event-show mt-20">
+    <div class="event-show__header">
+        <div class="event-show__status-wrapper">
+            <p>Статус:</p>
+            {% if event.status == 0 %}
+            <div class="sended-events__status pending">На рассмотрении</div>
+            {% elseif event.status == 1 %}
+            <div class="sended-events__status approved">Согласована</div>
+            {% elseif event.status == 2 %}
+            <div class="sended-events__status rejected">Отменена</div>
+            {% elseif event.status == 3 %}
+            <div class="sended-events__status need-edit">Требует действия</div>
+            {% endif %}
+        </div>
+        <div class="event-show__header-buttons">
+            {% if agent.role == 1 %}
+            <button class="event-show__edit-btn" data-request="onAccept" data-request-success="location.reload();">
+                Утвердить
+            </button>
+            <button class="event-show__edit-btn" data-request="onSentToEdit" data-request-success="location.reload();">
+                Отправить на доработку
+            </button>
+            <button class="event-show__edit-btn" data-request="onRejectt" data-request-success="location.reload();">
+                Отклонить
+            </button>
+            {% endif %}
+            {% if event.status == 0 or event.status == 3 %}
+            <a class="event-show__edit-btn" href="/event/edit/{{event.id}}">
+                Редактировать
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <g clip-path="url(#clip0_41_6089)">
+                        <path
+                            d="M11.9997 7.63776C11.1368 7.63776 10.2933 7.89364 9.57577 8.37305C8.85828 8.85247 8.29906 9.53387 7.96883 10.3311C7.63861 11.1283 7.55221 12.0056 7.72055 12.8519C7.8889 13.6983 8.30444 14.4757 8.91461 15.0859C9.52479 15.696 10.3022 16.1116 11.1485 16.2799C11.9949 16.4483 12.8721 16.3619 13.6694 16.0316C14.4666 15.7014 15.148 15.1422 15.6274 14.4247C16.1068 13.7072 16.3627 12.8637 16.3627 12.0008C16.3614 10.844 15.9013 9.73505 15.0834 8.91711C14.2654 8.09918 13.1565 7.63908 11.9997 7.63776ZM11.9997 13.3638C11.7301 13.3638 11.4666 13.2838 11.2425 13.134C11.0183 12.9843 10.8436 12.7714 10.7405 12.5224C10.6373 12.2733 10.6103 11.9992 10.6629 11.7348C10.7155 11.4705 10.8453 11.2276 11.0359 11.037C11.2266 10.8464 11.4694 10.7165 11.7338 10.6639C11.9982 10.6114 12.2723 10.6383 12.5213 10.7415C12.7704 10.8447 12.9832 11.0194 13.133 11.2435C13.2828 11.4677 13.3627 11.7312 13.3627 12.0008C13.3625 12.3622 13.2188 12.7087 12.9632 12.9643C12.7077 13.2198 12.3611 13.3635 11.9997 13.3638Z"
+                            fill="#374957" />
+                        <path
+                            d="M22 12C21.9985 10.4677 21.6422 8.95656 20.959 7.58499L21.473 7.22799C21.7993 7.00054 22.0219 6.65279 22.0919 6.26123C22.1618 5.86967 22.0734 5.46636 21.846 5.13999C21.6186 4.81368 21.2708 4.59108 20.8792 4.52113C20.4877 4.45118 20.0844 4.53962 19.758 4.76699L19.243 5.12499C17.7161 3.51342 15.695 2.45763 13.5 2.12499V1.49999C13.5 1.10217 13.342 0.720637 13.0607 0.439332C12.7794 0.158028 12.3978 -7.62939e-06 12 -7.62939e-06C11.6022 -7.62939e-06 11.2207 0.158028 10.9394 0.439332C10.658 0.720637 10.5 1.10217 10.5 1.49999V2.12499C8.30504 2.45763 6.2839 3.51342 4.75701 5.12499L4.24201 4.76699C3.91565 4.53962 3.51233 4.45118 3.12077 4.52113C2.72921 4.59108 2.38147 4.81368 2.15401 5.13999C1.92664 5.46636 1.8382 5.86967 1.90815 6.26123C1.9781 6.65279 2.2007 7.00054 2.52701 7.22799L3.04101 7.58499C2.35642 8.95605 2.00004 10.4675 2.00004 12C2.00004 13.5325 2.35642 15.0439 3.04101 16.415L2.52701 16.772C2.2007 16.9994 1.9781 17.3472 1.90815 17.7388C1.8382 18.1303 1.92664 18.5336 2.15401 18.86C2.38147 19.1863 2.72921 19.4089 3.12077 19.4789C3.51233 19.5488 3.91565 19.4604 4.24201 19.233L4.75701 18.875C6.2839 20.4866 8.30504 21.5424 10.5 21.875V22.5C10.5 22.8978 10.658 23.2793 10.9394 23.5607C11.2207 23.842 11.6022 24 12 24C12.3978 24 12.7794 23.842 13.0607 23.5607C13.342 23.2793 13.5 22.8978 13.5 22.5V21.875C15.695 21.5424 17.7161 20.4866 19.243 18.875L19.758 19.233C20.0844 19.4604 20.4877 19.5488 20.8792 19.4789C21.2708 19.4089 21.6186 19.1863 21.846 18.86C22.0734 18.5336 22.1618 18.1303 22.0919 17.7388C22.0219 17.3472 21.7993 16.9994 21.473 16.772L20.959 16.415C21.6422 15.0434 21.9985 13.5323 22 12ZM12 19C10.6155 19 9.26216 18.5895 8.11102 17.8203C6.95988 17.0511 6.06267 15.9579 5.53285 14.6788C5.00304 13.3997 4.86442 11.9922 5.13451 10.6344C5.40461 9.27649 6.0713 8.02921 7.05026 7.05024C8.02923 6.07128 9.27651 5.40459 10.6344 5.1345C11.9922 4.8644 13.3997 5.00302 14.6788 5.53284C15.9579 6.06265 17.0511 6.95986 17.8203 8.111C18.5895 9.26215 19 10.6155 19 12C18.9976 13.8558 18.2594 15.6349 16.9471 16.9471C15.6349 18.2593 13.8558 18.9976 12 19Z"
+                            fill="#374957" />
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_41_6089">
+                            <rect width="24" height="24" fill="white" />
+                        </clipPath>
+                    </defs>
+                </svg>
+            </a>
+            {%endif%}
+        </div>
 
-<h1>{{event.name}}</h1>
-<p>Инициатор: {{event.agent.user.first_name}} {{event.agent.user.last_name}} {{event.agent.user.email}}</p>
-<p>Уровень мероприятия: {{event.getPriorityLabelAttribute()}}</p>
-<p>Описание мероприятия: {{event.description}}</p>
-<p>Краткое описание мероприятия: {{event.short_description}}</p>
-<p>Даты проведения: с {{event.date_from}} по {{event.date_to}}</p>
-<p>Адрес проведения: {% if event.address %}{{event.address}}{%else%}Онлайн{%endif%}</p>
-<button type="button" class="btn btn-primary">Утвердить</button>
-<button type="button" class="btn btn-secondary">Ответить с комментарием</button>
-<a href="/event/edit/{{event.id}}" class="btn btn-secondary">Редактировать мероприятие</a>
+    </div>
+    <div class="event-show__hero">
+        <div class="event-show__hero-info">
+            <div class="event-show__hero-title">{{event.name}}</div>
+            <div class="event-show__hero-content">
+                <p><span class="fw-700">Инициатор:</span> {{event.agent.user.first_name}} {{event.agent.user.last_name}}
+                    {{event.agent.user.email}}
+                    из
+                    {{event.agent.region.name}}</p>
+                <p><span class="fw-700">Уровень мероприятия:</span> {{event.getPriorityLabelAttribute()}}</p>
+                <p><span class="fw-700">Адрес проведения:</span> {% if event.address
+                    %}{{event.address}}{%else%}Онлайн{%endif%}</p>
+                <p><span class="fw-700">Количество участников:</span> {{event.participants}}</p>
+            </div>
+            <label for="file" class="mt-20">Файлы положения:</label>
+
+            <!-- Вывод списка загруженных файлов -->
+            <div class="uploaded-files">
+                {% if event.attachment %}
+                <p>
+                    <a href="{{ event.attachment.getPath }}" target="_blank">Скачать файл <span
+                            style="color: blue; text-decoration: underline;">{{event.attachment.file_name}}</span></a>
+                </p>
+                {% else %}
+                <p>Файлы положения отсутствуют.</p>
+                {% endif %}
+            </div>
+            <div class="event-show__hero-footer">
+                <div class="event-show__hero-date">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="20" viewBox="0 0 19 20" fill="none">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M9.16667 2.50001C5.02453 2.50001 1.66667 5.85788 1.66667 10C1.66667 14.1422 5.02453 17.5 9.16667 17.5C13.3088 17.5 16.6667 14.1422 16.6667 10C16.6667 5.85788 13.3088 2.50001 9.16667 2.50001ZM0 10C0 4.9374 4.10406 0.833344 9.16667 0.833344C14.2292 0.833344 18.3333 4.9374 18.3333 10C18.3333 15.0626 14.2292 19.1667 9.16667 19.1667C4.10406 19.1667 0 15.0626 0 10ZM9.16667 4.16668C9.62692 4.16668 10 4.53978 10 5.00001V9.48501L12.8727 10.9213C13.2843 11.1272 13.4512 11.6277 13.2453 12.0393C13.0395 12.451 12.539 12.6178 12.1273 12.412L8.794 10.7453C8.51167 10.6042 8.33333 10.3157 8.33333 10V5.00001C8.33333 4.53978 8.70642 4.16668 9.16667 4.16668Z"
+                            fill="#868698" />
+                    </svg>
+                    <span class="fw-700">Дата проведения:</span>{{event.date_from}} - {{event.date_to}}
+                </div>
+                <!-- <div class="event-show__hero-"></div> -->
+            </div>
+        </div>
+        <div class="event-show__hero-image">
+            {% if event.photo %}
+            <img src="{{event.photo.getPath}}" alt="">
+            {% else %}
+            <img src="{{'assets/img/event-photo.png '|theme }}" alt="">
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="event-show__descr">
+        <h2>О мероприятии</h2>
+        <p>{{event.description}}</p>
+    </div>
+
+    {% if event.comments %}
+    <div class="event-show__messanger">
+        <h2>Комментарии по заявке</h2>
+        {% for message in event.comments %}
+        <div class="event-show__messanger-message"><span class="fw-800">От:
+                {{message.sender.user.first_name}} {{message.sender.user.last_name}}</span>
+            <br>
+            {{message.text}}
+        </div>
+        {% endfor %}
+    </div>
+    {%endif%}
+
+    {% if event.status == 0 or event.status == 3 %}
+    <form id="event-create-form" class="send-message mt-20" data-request-flash data-request="onSendComment"
+        method="POST" class="custom-form" data-request-success="location.reload();">
+        <textarea class="form-control" placeholder="Написать сообщение..." required name="text"></textarea>
+        <button class="btn btn-primary" data-attach-loading>Отправить комментарий</button>
+    </form>
+    {%endif%}
+</div>

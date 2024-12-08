@@ -51,7 +51,7 @@ class CreateEventComponent extends ComponentBase
 
         $data = post(); // Получение данных из формы
         $file = Input::file('position-files'); // Получение файла из формы
-        Log::info($data);
+        $photo = Input::file('photo'); // Получение файла из формы
 
         try {
             $data['agent_id'] = $agent->id;
@@ -65,9 +65,8 @@ class CreateEventComponent extends ComponentBase
             }
 
             // Создаём мероприятие
-            $event = Event::createOrUpdateEvent($data, $file);
-            Log::info('Мероприятие успешно создано');
-            Flash::success('Мероприятие успешно создано');
+            $event = Event::createOrUpdateEvent($data, $file, null, $photo);
+            return redirect()->to('/event/preview/'.$event->id );
         } catch (ValidationException $e) {
             Flash::error($e->getMessage());
             Log::error($e->getMessage());

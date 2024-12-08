@@ -3,9 +3,10 @@
 use Cms\Classes\ComponentBase;
 use Legacyteam\FspInfo\Models\News;
 use Legacyteam\FspInfo\Models\Agent;
-use Illuminate\Support\Facades\Input;
+
 use ValidationException;
 use Auth;
+use Input;
 
 
 class CreateNewsComponent extends ComponentBase
@@ -44,8 +45,9 @@ class CreateNewsComponent extends ComponentBase
         $agent = Agent::getAgentByUser(Auth::getUser());
         $region_id = $agent->region_id;
         $data['region_id'] = $region_id;
+        $photo = Input::file('photo'); // Получение файла из формы
         try {
-            $news = News::createOrUpdateNews($data);
+            $news = News::createOrUpdateNews($data, null, $photo);
             \Flash::success('Новость успешно создана.');
         } catch (ValidationException $e) {
             \Flash::error($e->getMessage());

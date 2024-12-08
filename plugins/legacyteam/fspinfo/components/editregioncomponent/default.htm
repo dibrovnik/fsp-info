@@ -1,14 +1,135 @@
 <h1 class="mb-4">Редактирование информации о региональном отделении</h1>
+<div class="edit-region__header">
+    <a href="/account" class="edit-region__back">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <g clip-path="url(#clip0_34_5223)">
+                <path
+                    d="M4.94266 5.606L1.02366 9.525C0.387283 10.1919 0.0322266 11.0782 0.0322266 12C0.0322266 12.9218 0.387283 13.8081 1.02366 14.475L4.94266 18.394C5.08103 18.5373 5.24655 18.6515 5.42955 18.7302C5.61256 18.8088 5.80939 18.8501 6.00856 18.8519C6.20773 18.8536 6.40524 18.8157 6.58959 18.7402C6.77393 18.6648 6.94141 18.5534 7.08225 18.4126C7.22309 18.2718 7.33447 18.1043 7.40989 17.9199C7.48531 17.7356 7.52326 17.5381 7.52153 17.3389C7.5198 17.1397 7.47842 16.9429 7.39981 16.7599C7.3212 16.5769 7.20692 16.4114 7.06366 16.273L4.28466 13.492L22.5347 13.469C22.9325 13.469 23.314 13.311 23.5953 13.0297C23.8766 12.7484 24.0347 12.3668 24.0347 11.969C24.0347 11.5712 23.8766 11.1896 23.5953 10.9083C23.314 10.627 22.9325 10.469 22.5347 10.469L4.29966 10.492L7.06366 7.727C7.3369 7.44409 7.48809 7.06519 7.48467 6.6719C7.48125 6.2786 7.3235 5.90238 7.04539 5.62427C6.76727 5.34616 6.39106 5.1884 5.99776 5.18499C5.60447 5.18157 5.22556 5.33276 4.94266 5.606Z"
+                    fill="#0057FF" />
+            </g>
+            <defs>
+                <clipPath id="clip0_34_5223">
+                    <rect width="24" height="24" fill="white" />
+                </clipPath>
+            </defs>
+        </svg>
+        Вернуться в аккаунт
+    </a>
+</div>
+<div class="edit-region__files">
+    <form method="post" class="region-avatar" data-request="onUploadAvatar" data-request-files
+        data-request-success="location.reload();" data-request-flash>
+
+        <input type="hidden" name="message" value="false" />
+        нажмите чтобы изменить
+        <div class="editor-view collapse show avatar-image" style="position: relative; cursor: pointer;">
+            <img src="{{ region.avatar.getPath }}" alt="Аватар региона" class="img-thumbnail avatar-preview" />
+            <input name="avatar" type="file" accept=".jpg,.jpeg,.bmp,.png,.webp,.gif" class="form-control avatar-input"
+                style="display: none;" />
+        </div>
+        <div class="editor-edit">
+            <button class="btn btn-primary" data-attach-loading type="submit">
+                Сохранить аватар
+            </button>
+        </div>
+    </form>
+
+    <form method="post" class="banner-editor" data-request="onUploadBanner" data-request-files
+        data-request-success="location.reload();" data-request-flash>
+
+        <input type="hidden" name="message" value="false" />
+
+        <!-- Блок для загрузки баннера -->
+        нажмите чтобы изменить
+        <div class="editor-view collapse show banner-image">
+
+            {% if region.banner %}
+            <img src="{{region.banner.getPath}}" alt="Баннер региона" class="banner-preview" />
+            {%else%}
+            <img src="{{'assets/img/banner.png '|theme }}" alt="Баннер региона" class="banner-preview" />
+            {%endif%}
+            <input name="banner" type="file" accept=".jpg,.jpeg,.bmp,.png,.webp,.gif" class="form-control banner-input"
+                style="display: none;" />
+        </div>
+
+        <!-- Кнопки управления -->
+        <div class="editor-actions">
+            <button class="btn btn-primary" data-attach-loading type="submit">
+                Сохранить баннер
+            </button>
+        </div>
+    </form>
+
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const bannerInput = document.querySelector('.banner-input');
+        const bannerPreview = document.querySelector('.banner-preview');
+        const form = document.querySelector('.banner-editor');
+
+        // Клик на баннер
+        bannerPreview.addEventListener('click', () => {
+            bannerInput.click();
+        });
+
+        // Предпросмотр баннера и автоматическая отправка формы
+        bannerInput.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    bannerPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+
+                // Автоматическая отправка формы
+                // form.submit();
+            }
+        });
+    });
+</script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const avatarInput = document.querySelector('.avatar-input');
+        const avatarPreview = document.querySelector('.avatar-preview');
+        const form = document.querySelector('.account-editor');
+
+        // Клик на аватар
+        avatarPreview.addEventListener('click', () => {
+            avatarInput.click();
+        });
+
+        // Предпросмотр изображения и автоматическая отправка формы
+        avatarInput.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    avatarPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+
+                // Автоматическая отправка формы
+                form.submit();
+            }
+        });
+    });
+</script>
+
 <form id="event-create-form" data-request-flash data-request="onEditRegion" method="POST"
-    class="d-flex gap-3 flex-column" enctype="multipart/form-data">
+    class="custom-form edit-region" enctype="multipart/form-data">
     <h4>Основная информация</h4>
     <input type="hidden" name="region_id" value="{{ region.id ?? '' }}">
     <input class="form-control" type="text" placeholder="Название региона" readonly name="name"
         value="{{ region.name ?? '' }}" disabled>
+    <input class="form-control" type="hidden" placeholder="Название региона" readonly name="name"
+        value="{{ region.name ?? '' }}">
     <input class="form-control" type="text" placeholder="Код региона" value="{{ region.code }}" readonly disabled
         name="code">
-    <input hidden class="form-control" type="text" placeholder="Округ" value="{{ region.district.id }}" readonly
-        disabled name="district_id">
+    <input class="form-control" type="text" placeholder="Округ" value="{{ region.district.id }}" readonly
+        name="district_id" style="display: none;">
     <input class="form-control" type="text" placeholder="Округ" value="{{ region.district.name }}" readonly disabled>
     <textarea class="form-control" placeholder="Описание регионального отделения" required
         name="description">{{ region.description ?? '' }}</textarea>
@@ -16,14 +137,17 @@
     <!-- Секция для добавления контактов -->
     <div class="contacts-section">
         <h4>Контакты</h4>
-        <div id="contacts-list">
+        <div id="contacts-list" class="mt-20">
             {% for contact in region.contacts %}
-            <div class="contact-item mb-2 d-flex gap-2">
+            <div class="contact-item mb-2 d-flex gap-2 align-items-center">
+                <input type="radio" name="main_contact" value="{{ loop.index0 }}" {% if loop.index0==0 %}checked{% endif
+                    %} class="form-check-input ms-2">
+                <label class="form-check-label">Главный</label>
                 <input type="text" class="form-control" placeholder="Название контакта"
                     name="contacts[{{ loop.index0 }}][title]" value="{{ contact.title }}" required>
                 <input type="text" class="form-control" placeholder="Контакт" name="contacts[{{ loop.index0 }}][value]"
                     value="{{ contact.value }}" required>
-                <button type="button" class="btn btn-danger remove-contact">Удалить</button>
+                <button type="button" class="btn btn-danger remove-contact ms-2">Удалить</button>
             </div>
             {% endfor %}
         </div>
@@ -39,14 +163,16 @@
         const contactCount = contactList.children.length;
 
         const contactItem = document.createElement('div');
-        contactItem.classList.add('contact-item', 'mb-2', 'd-flex', 'gap-2');
+        contactItem.classList.add('contact-item', 'mb-2', 'd-flex', 'gap-2', 'align-items-center');
 
         contactItem.innerHTML = `
+            <input type="radio" name="main_contact" value="${contactCount}" class="form-check-input ms-2">
+            <label class="form-check-label">Главный</label>
             <input type="text" class="form-control" placeholder="Название контакта"
                 name="contacts[${contactCount}][title]" required>
             <input type="text" class="form-control" placeholder="Контакт"
                 name="contacts[${contactCount}][value]" required>
-            <button type="button" class="btn btn-danger remove-contact">Удалить</button>
+            <button type="button" class="btn btn-danger remove-contact ms-2">Удалить</button>
         `;
 
         contactList.appendChild(contactItem);
@@ -61,6 +187,22 @@
     document.querySelectorAll('.remove-contact').forEach(function (button) {
         button.addEventListener('click', function () {
             this.closest('.contact-item').remove();
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('event-create-form');
+
+        // Активируем DirtyForms на форме
+        $(form).dirtyForms({
+            preventLeaving: true
+        });
+
+        // Отключение предупреждения при сохранении формы
+        form.addEventListener('submit', function () {
+            $(form).dirtyForms('setClean'); // Помечаем форму как "чистую"
         });
     });
 </script>

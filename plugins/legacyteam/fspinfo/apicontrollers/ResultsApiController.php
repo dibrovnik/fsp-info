@@ -33,6 +33,11 @@ class ResultsApiController extends ApiController
         return $results;
     }
 
+    public static function getResultsByEvent($id)
+    {
+        return Result::where('event_id', $id)->get();
+    }
+
 
     public static function setResults()
     {
@@ -84,7 +89,5 @@ class ResultsApiController extends ApiController
             'message' => 'Файл не был найден.'
         ]);
     }
-
-
 
 }

@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 400;
+}
+
+html {
+  background-color: #fff;
+}
+.result-title {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Обеспечивает растяжение элемента на всю ширину контейнера */
+  text-align: center; /* Центрирует текст внутри элемента */
+  font-size: 32px;
+  font-weight: 800;
+  border-bottom: 1px solid black;
+}
+table {
+  width: 100%; /* Устанавливаем ширину таблицы */
+  border-collapse: collapse; /* Убираем двойные границы */
+  margin: 20px auto; /* Центрируем таблицу */
+}
+td {
+  background-color: #f4f4f4;
+}
+th,
+td {
+  border: 5px solid #fff;
+  text-align: center; /* Центрируем текст в ячейках */
+  padding: 10px; /* Добавляем отступ внутри ячеек */
+}
+th {
+  font-weight: bold; /* Жирный текст для заголовков */
+}
+
+.fw-7 {
+  font-weight: 700;
+}

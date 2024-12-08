@@ -1,0 +1,45 @@
+<div class="profile__account-info-wrapper">
+    <div class="profile__account-info-fields">
+        <div class="profile__field">
+            <label for="" class="profile__field-label">Логин</label>
+            <input type="text" readonly value="{{ user.email }}">
+        </div>
+        <div class="profile__field">
+            <label for="" class="profile__field-label">Пароль</label>
+            <input type="text" readonly value="*********">
+        </div>
+    </div>
+    <div class="profile__account-btns">
+        <a target="_blank" href="https://t.me/FSPInfoBot?start={{agent.id}}" class="profile__btn-primary">Подключить
+            уведомления</a>
+        <button class="profile__btn-danger" data-request="onLogout">Выйти</button>
+        <!-- <button class="profile__btn-danger" data-request="onSendNotification">Отправить уведомление</button> -->
+        <button class="profile__btn-danger" type="button" class="btn btn-outline-danger btn-sm" data-request="onAjax"
+            data-request-update="{ 'account/popup-account-delete': '#siteModalContent' }" data-bs-toggle="modal"
+            data-bs-target="#siteModal">Удалить аккаунт</button>
+    </div>
+</div>
+
+<h1 class="profile__title mt-20">Управляемые отделения</h1>
+<div class="profile-region__list">
+
+    {% for region in allRegions %}
+    <div class="profile-region__item">
+        <div class="profile-region__banner">
+            {% if region.banner %}
+            <img src="{{region.banner.getPath }}" alt="">
+            {%else%}
+            <img src="{{'assets/img/banner.png '|theme }}" alt="">
+            {%endif%}
+        </div>
+        <div class="profile-region__avatar">
+            <img src="{{ region.avatar.getPath }}" alt="">
+        </div>
+        <div class="profile-region__item-footer">
+            <div class="h1">{{region.name}}</div>
+            <div class="h2">{{region.district.short_name}}</div>
+            <a href="region/edit/{{region.id}}" class="btn">Редактировать аккаунт представительства</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>

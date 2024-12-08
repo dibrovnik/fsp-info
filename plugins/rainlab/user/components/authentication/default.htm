@@ -1,6 +1,6 @@
 {% if __SELF__.showLoginForm %}
 <div class="collapse show login-collapse">
-    <form method="post" data-request="onLogin" data-request-flash>
+    <form method="post" data-request="onLogin" data-request-flash class="custom-form">
         <input type="hidden" name="redirect" value="true" />
 
         <div class="text-center pb-2">
@@ -10,19 +10,19 @@
         {% if __SELF__.showUsernameField %}
         <div class="form-floating my-3">
             <input name="username" type="text" class="form-control" id="inputUsername" />
-            <label for="inputEmail">Имя пользователя</label>
+            <!-- <label for="inputEmail">Имя пользователя</label> -->
         </div>
         {% else %}
         <div class="form-floating my-3">
             <input name="email" type="email" class="form-control" id="inputEmail" placeholder="name@example.com"
                 oninput="document.getElementById('inputRecoverEmail').value = this.value" />
-            <label for="inputEmail">Email</label>
+            <!-- <label for="inputEmail">Email</label> -->
         </div>
         {% endif %}
 
         <div class="form-floating my-3">
             <input name="password" type="password" class="form-control" id="inputPassword" placeholder="Пароль" />
-            <label for="inputPassword">Пароль</label>
+            <!-- <label for="inputPassword">Пароль</label> -->
         </div>
 
         <button class="btn btn-primary btn-lg w-100 py-2" data-attach-loading type="submit">

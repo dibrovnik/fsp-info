@@ -1,7 +1,34 @@
-<a href="/storage/app/media/Шаблон.xlsx" download class="btn btn-secondary">Скачать шаблон для загрузки результатов</a>
-<form id="create-result-form" data-request-flash data-request="onCreateResult" method="POST"
-    class="d-flex flex-column gap-3">
+<h2>Добавление результата через файл excel</h2>
 
+<form id="myForm">
+    <a href="/storage/app/media/Шаблон.xlsx" download class="btn btn-secondary">Скачать шаблон для загрузки
+        результатов</a>
+    <input type="file" name="results" id="">
+    <button type="button" class="btn btn-primary" onclick="submitForm()">Отправить</button>
+</form>
+
+<script>
+    function submitForm() {
+        const form = document.getElementById('myForm');
+        const formData = new FormData(form);
+
+        fetch('/api/v1/result/create', {
+            method: 'POST',
+            body: formData,
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Результаты успешно записаны!');
+                } else {
+                    alert('Ошибка: ' + data.message);
+                }
+            })
+            .catch(error => console.error('Ошибка:', error));
+    }
+</script>
+<form id="create-result-form" class="custom-form mt-20" data-request-flash data-request="onCreateResult" method="POST">
+    <h2>Ручное добавление</h2>
     <label for="event_id">Выберите мероприятие:</label>
     <select name="event_id" id="event_id" class="form-control" required>
         {% for event in __SELF__.events %}

@@ -1,0 +1,15 @@
+<div class="verify">
+    {% ajaxPartial 'account/field-avatar' %}
+
+    {% if agent.user.avatar %}
+    <div class="verify-status">
+        <div class="verify-info true">Профиль верифицирован</div>
+        <p>Отлично! Профиль верефицирован </p>
+    </div>
+    {% else %}
+    <div class="verify-status">
+        <div class="verify-info false">Профиль не верифицирован</div>
+        <p>Ваш профиль пока не подтвержден. Загрузите фотографию или обратитесь в техническую поддержку</p>
+    </div>
+    {% endif %}
+</div>

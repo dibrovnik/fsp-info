@@ -26,10 +26,10 @@ class News extends Model
     ];
 
     public $attachOne = [
-        'avatar' => \System\Models\File::class
+        'photo' => \System\Models\File::class
     ];
 
-    public static function createOrUpdateNews(array $data, $newsId = null)
+    public static function createOrUpdateNews(array $data, $newsId = null, $photo = null)
     {
         $news = $newsId ? static::find($newsId) : new static();
 
@@ -63,8 +63,31 @@ class News extends Model
         // Сохраняем запись
         $news->save();
 
+        // Обрабатываем файл положения, если он есть
+        if ($photo) {
+            $news->uploadPhoto($photo);
+        }
+
         return $news;
     }
+  
+    public function uploadPhoto($photo)
+    {
+        if (!$photo) {
+            return;
+        }
 
+        // Удаляем старый файл, если он существует
+        if ($this->photo) {
+            $this->photo->delete();
+        }
 
+        // Привязываем новый файл
+        $this->photo()->create(['data' => $photo]);
+    }
+
+    public static function getPhotoPath()
+    {
+        return $this->photo->getPath();
+    }
 }

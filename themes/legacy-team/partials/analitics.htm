@@ -1,0 +1,308 @@
+<!-- TODO: ИЗМЕНИТЬ СТИЛИ ЧТОБЫ НЕ СКАКАЛИ ГРАФИКИ -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% if agent.role == 1 %}
+<h3>Выберите регион</h3>
+<form method="GET" class="custom-form mt-20">
+    <select name="region_id" id="" class="form-control" onchange="updateUrlWithRegion(this.value)">
+        <option value="">Выберите регион</option>
+        {% for region, key in allRegionsForSelect %}
+        <option value="{{ key }}" {% if selectedRegionId==key %}selected{% endif %}>{{ region }}</option>
+        {% endfor %}
+    </select>
+</form>
+
+<script>
+    function updateUrlWithRegion(regionId) {
+        // Получаем текущий URL
+        const currentUrl = new URL(window.location.href);
+
+        // Устанавливаем или обновляем параметр region_id
+        if (regionId) {
+            currentUrl.searchParams.set('region_id', regionId);
+        } else {
+            currentUrl.searchParams.delete('region_id');
+        }
+
+        // Перезагружаем страницу с обновлённым URL
+        window.location.href = currentUrl.toString();
+    }
+</script>
+{% if eventsForAnalitics is null %}
+<h1>Выберите регион для просмотра аналитики</h1>
+{% endif %}
+{% endif %}
+<div class="analitics--main">
+    <canvas id="scoreChart" width="800" height="200" style="width: 100%; max-height: 400px;"></canvas>
+    <div class="analitics--main__flex">
+      <canvas id="statusChart" width="800" height="200" style="max-width: 50%;"></canvas>
+      <canvas id="priorityChart" width="800" height="200" style="max-width: 50%;"></canvas>
+    </div>
+    <canvas id="participantsChart" width="800" height="400"
+        style="width: 100%; max-height: 400px; height: 500px;"></canvas>
+</div>
+
+<script>
+    const dataStatus = {{ resultsForAnalitics | raw }};
+    const dataEvents = {{ eventsForAnalitics | raw }};
+
+    console.log(dataStatus);
+    console.log(dataEvents);
+    // Функция для построения диаграммы очков команд
+    function drawTeamScoresChart(data) {
+        const aggregatedData = data.reduce((acc, item) => {
+            if (!acc[item.winner_name]) {
+                acc[item.winner_name] = {
+                    score: 0
+                };
+            }
+            acc[item.winner_name].score += item.score;
+            return acc;
+        }, {});
+
+        const labels = Object.keys(aggregatedData);
+        const scores = Object.values(aggregatedData).map(item => item.score);
+
+        const config = {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Очки',
+                    data: scores,
+                    backgroundColor: 'rgba(0, 87, 255, 0.6)',
+                    borderColor: 'rgba(0, 87, 255, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Распределение очков команд'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        const ctx = document.getElementById('scoreChart').getContext('2d');
+        new Chart(ctx, config);
+    }
+
+    // Функция для построения диаграммы статусов задач
+    function drawTaskStatusChart(data) {
+        const statusCounts = data.reduce((acc, item) => {
+            acc[item.status] = (acc[item.status] || 0) + 1;
+            return acc;
+        }, {});
+
+        const labelName = {
+          '0': 'На рассмотрении',
+          '1': 'Согласовано',
+          '2': 'Отменено',
+          '3': 'Требует действия',
+        }
+
+        const getLabelName = (el) => {
+          return el.map((e) => labelName[e]);
+        }
+
+        const labels = getLabelName(Object.keys(statusCounts));
+        const counts = Object.values(statusCounts);
+
+        const config = {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Количество МП',
+                    data: counts,
+                    backgroundColor: [
+                        'rgba(0, 87, 255, 0.6)',
+                        'rgba(139, 195, 74, 0.6)',
+                        'rgba(233, 30, 99, 0.6)',
+                        'rgba(255, 193, 7, 0.6)',
+                        'rgba(0, 150, 136, 0.6)',
+                        'rgba(103, 58, 183, 0.6)',
+                        'rgba(169, 205, 250, 0.6)',
+                        'rgba(255, 87, 34, 0.6)',
+                    ],
+                    borderColor: [
+                        'rgba(0, 87, 255, 1)',
+                        'rgba(139, 195, 74, 1)',
+                        'rgba(233, 30, 99, 1)',
+                        'rgba(255, 193, 7, 1)',
+                        'rgba(0, 150, 136, 1)',
+                        'rgba(103, 58, 183, 1)',
+                        'rgba(169, 205, 250, 1)',
+                        'rgba(255, 87, 34, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Распределение МП по статусу'
+                    }
+                }
+            }
+        };
+
+        const ctx = document.getElementById('statusChart').getContext('2d');
+        new Chart(ctx, config);
+    }
+
+    function renderParticipantsChart(data) {
+        const participantsByMonth = data.reduce((acc, event) => {
+            const date = new Date(event.date_from);
+            const month = date.toLocaleString("default", {
+                month: "long",
+                year: "numeric"
+            });
+
+            acc[month] = (acc[month] || 0) + event.participants; // Суммируем участников для каждого месяца
+            return acc;
+        }, {});
+
+        // Преобразование данных для графика
+        const labels = Object.keys(participantsByMonth); // Названия месяцев
+        const participants = Object.values(participantsByMonth); // Количество участников
+
+        // Конфигурация графика
+        const config = {
+            type: 'line', // Линейный график
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Количество участников',
+                    data: participants,
+                    borderColor: 'rgba(0, 87, 255, 1)',
+                    backgroundColor: 'rgba(0, 87, 255, 0.6)',
+                    borderWidth: 2,
+                    tension: 0.3, // Гладкость линии
+                    fill: true // Заполнение под графиком
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Количество участников по месяцам'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        // Рендеринг графика
+        const ctx = document.getElementById('participantsChart').getContext('2d');
+        new Chart(ctx, config);
+    }
+
+
+    function drawPriorityChart(data) {
+        const priorityCounts = data.reduce((acc, item) => {
+            acc[item.priority] = (acc[item.priority] || 0) + 1;
+            return acc;
+        }, {});
+
+        const labelName = {
+          '0': 'Не указан',
+          '1': 'Муниципальный',
+          '2': 'Региональный',
+          '3': 'Федеральный',
+          '4': 'Всероссийский',
+        }
+
+        const getLabelName = (el) => {
+          return el.map((e) => labelName[e]);
+        }
+
+        const labels = getLabelName(Object.keys(priorityCounts));
+
+        const counts = Object.values(priorityCounts);
+
+        // Конфигурация графика
+        const config = {
+            type: 'pie', // Круговая диаграмма
+            data: {
+                labels: labels, // Метим приоритеты
+                datasets: [{
+                    label: 'Количество задач',
+                    data: counts,
+                    backgroundColor: [
+                        'rgba(0, 87, 255, 0.6)',
+                        'rgba(139, 195, 74, 0.6)',
+                        'rgba(233, 30, 99, 0.6)',
+                        'rgba(255, 193, 7, 0.6)',
+                        'rgba(0, 150, 136, 0.6)',
+                        'rgba(103, 58, 183, 0.6)',
+                        'rgba(169, 205, 250, 0.6)',
+                        'rgba(255, 87, 34, 0.6)',
+                    ],
+                    borderColor: [
+                        'rgba(0, 87, 255, 1)',
+                        'rgba(139, 195, 74, 1)',
+                        'rgba(233, 30, 99, 1)',
+                        'rgba(255, 193, 7, 1)',
+                        'rgba(0, 150, 136, 1)',
+                        'rgba(103, 58, 183, 1)',
+                        'rgba(169, 205, 250, 1)',
+                        'rgba(255, 87, 34, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Доли задач по приоритету'
+                    }
+                }
+            }
+        };
+
+        // Рендеринг графика
+        const ctx = document.getElementById('priorityChart').getContext('2d');
+        new Chart(ctx, config);
+    }
+
+
+    // Вызов функций
+    drawPriorityChart(dataEvents);
+    drawTeamScoresChart(dataStatus);
+    drawTaskStatusChart(dataEvents);
+    renderParticipantsChart(dataEvents);
+</script>

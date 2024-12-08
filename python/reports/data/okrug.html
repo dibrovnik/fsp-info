@@ -1,0 +1,93 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles.css" />
+    <title>Отчет</title>
+  </head>
+  <body>
+    <header class="wrapper">
+      <div class="result-title">
+        <div>Отчёт мероприятий</div>
+        <div>{{ okrugName }}</div>
+      </div>
+    </header>
+    <div class="info-row">
+      <table>
+        <tr>
+          <th>Количество принятых мероприятий</th>
+          <th>Общее количество участников</th>
+        </tr>
+        <tr>
+          <td>{{ eventsCount }}</td>
+          <td>{{ totalParticipants }}</td>
+        </tr>
+      </table>
+
+      <div style="margin-bottom: 20px" class="result-title"></div>
+
+      {% if regionsInfo %}
+      <table>
+        <tr>
+          <th>Регион</th>
+          <th>Количество мероприятий</th>
+          <th>Количество участников</th>
+        </tr>
+        {% for i in regionsInfo %} {% if i['eventsCount'] != 0 %}
+        <tr>
+          <td>{{ i['name'] }}</td>
+          <td>{{ i['eventsCount'] }}</td>
+          <td>{{ i['regionParticipants'] }}</td>
+        </tr>
+        {% endif %} {% endfor %}
+      </table>
+      <table>
+        {% for region in regionsInfo %} {% if region['eventsCount'] %}
+        <tr>
+          <th style="font-size: 18px">{{ region['name'] }}</th>
+        </tr>
+        <tr>
+          <th>Мероприятие</th>
+          <th>Дата</th>
+          <th>Уровень мероприятия</th>
+          <th>Участники</th>
+        </tr>
+        {% endif %} {% for event in region['eventsInfo'] %}
+        <tr>
+          <td>{{ event['eventName'] }}</td>
+          <td>{{ event['date_from'] }}-{{ event['date_to'] }}</td>
+          <td>
+            {% if event['priority'] == 0 %}
+            <p>Не указан</p>
+            {% elif event['priority'] == 1 %}
+            <p>Муниципальный</p>
+            {% elif event['priority'] == 2 %}
+            <p>Региональный</p>
+            {% elif event['priority'] == 3 %}
+            <p>Федеральный</p>
+            {% elif event['priority'] == 4 %}
+            <p>Всероссийский</p>
+            {% endif %}
+          </td>
+          <td>{{ event['participants'] }}</td>
+        </tr>
+        {% endfor %} {% endfor %}
+      </table>
+      {% endif %}
+    </div>
+
+    <footer style="margin-top: 100px">
+      <table>
+        <tr>
+          <th style="padding-left: 100px; width: 10%" class="fw-7">Дата:</th>
+          <th style="text-align: start; text-align: center">
+            <span>{{ created_at }}</span>
+          </th>
+          <th style="padding-left: 100px"></th>
+          <th style="width: 10%" class="fw-7">Подпись:</th>
+          <th style="text-align: start"><span>_________________</span></th>
+        </tr>
+      </table>
+    </footer>
+  </body>
+</html>

@@ -1,8 +1,54 @@
-<form id="create-news-form" data-request-flash data-request="onCreateNews" method="POST"
-    class="d-flex flex-column gap-3">
+<form id="create-news-form" data-request-flash data-request="onCreateNews" method="POST" class="custom-form"
+    data-request-files>
+    <!-- Блок для загрузки фото -->
+    <div class="editor-view collapse show banner-image">
+        <img src="{{'assets/img/download-photo.jpg '|theme }}" alt="Баннер региона" id="news-photo-preview"
+            class="banner-preview" />
+        <input name="photo" type="file" accept=".jpg,.jpeg,.bmp,.png,.webp,.gif" id="news-photo-input"
+            class="form-control banner-input" style="display: none;" />
+    </div>
+    нажмите чтобы добавить картинку новости
+    <style>
+        .editor-view {
+            width: 200px;
+            height: 200px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    </style>
     <input type="text" name="title" class="form-control" placeholder="Заголовок новости" required>
     <textarea name="content" class="form-control" placeholder="Содержание новости" required></textarea>
     <input type="text" name="link" class="form-control" placeholder="Ссылка (необязательно)">
-    <textarea name="short_description" class="form-control" placeholder="Краткое описание новости"></textarea>
-    <button type="submit" class="btn btn-primary">Создать новость</button>
+    <button type="submit" class="btn btn-primary">Опубликовать новость</button>
 </form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const newsInput = document.getElementById('news-photo-input');
+        const newsPreview = document.getElementById('news-photo-preview');
+
+        // Клик на баннер
+        newsPreview.addEventListener('click', () => {
+            newsInput.click();
+        });
+
+        // Предпросмотр баннера и автоматическая отправка формы
+        newsInput.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    newsPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>

@@ -50,6 +50,41 @@
         font-weight: var(--font-weight-700, 700);
         line-height: var(--line-height-18, 18px);
         /* 128.571% */
+
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    &__btn-primary {
+        display: flex;
+        padding: 15px 25px;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 4px;
+        border: var(--stroke-weight-1, 1px) solid var(--leader-id-ru-white, #FFF);
+        background: #2185FB;
+        box-shadow: 0px 3px 5px 0px rgba(142, 165, 192, 0.20), 0px 6px 10px 0px rgba(142, 165, 192, 0.14), 0px 1px 18px 0px rgba(142, 165, 192, 0.12);
+
+        color: var(--leader-id-ru-sunset-orange, #ffffff);
+        text-align: center;
+
+        /* leader-id.ru/Inter/Bold */
+        font-family: var(--font-family-Font-1, Inter);
+        font-size: 14px;
+        font-style: normal;
+        font-weight: var(--font-weight-700, 700);
+        line-height: var(--line-height-18, 18px);
+        /* 128.571% */
+
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+            opacity: 0.8;
+        }
     }
 
     &__account-btns {
@@ -110,6 +145,11 @@
 .mt-20 {
     margin-top: 20px;
 }
+
+.mt-8 {
+    margin-top: 8px;
+}
+
 
 .profile-region {
     &__list {
@@ -186,7 +226,7 @@
         width: 120px;
         height: 120px;
         flex-shrink: 0;
-
+        overflow: hidden;
 
         border-radius: 100%;
         fill: #C4C4C4;
@@ -196,26 +236,44 @@
 
         background: antiquewhite;
         z-index: 10;
-        top: 27px;
+        top: 25%;
         left: 30px;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     }
 
     &__banner {
         width: 100%;
 
-        height: 202px;
+        height: 250px;
         flex-shrink: 0;
         border-radius: 10px 10px 30px 30px;
 
         img {
             object-fit: cover;
             width: 100%;
-            height: 100%;
+            height: 56%;
+            // height: 100%;
         }
     }
 }
 
+.tab-content {
+    display: none;
+    /* По умолчанию содержимое вкладок скрыто */
+}
+
+.tab-content.active {
+    display: block;
+    /* Показываем активную вкладку */
+}
+
 .tabs-control__item {
+    text-wrap: nowrap;
     display: flex;
     padding: 15px 25px;
     justify-content: center;
@@ -245,10 +303,220 @@
 }
 
 .tabs-control__list {
+    flex-wrap: wrap;
+    // justify-content: space-between;
+    gap: 3px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+
     margin-top: 20px;
     margin-bottom: 20px;
     display: flex;
-    gap: 20px;
     align-items: center;
     align-self: stretch;
+}
+
+.custom-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sended-events {
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        align-self: stretch;
+    }
+
+    &__item {
+        display: flex;
+        padding: 12px 30px;
+        justify-content: space-between;
+        align-items: center;
+        align-self: stretch;
+
+        border-radius: 20px;
+        background: var(--color-grey-93, #E1EBF7);
+    }
+
+    &__item-name {
+        color: #000;
+        font-family: Inter;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        width: 100%;
+
+    }
+
+    &__item-info {
+        display: flex;
+        align-items: center;
+        gap: 48px;
+
+        color: var(--leader-id-ru-steel-gray, var(--color-blue-15, #1E1E2F));
+
+        /* leader-id.ru/Inter/Medium */
+        font-family: var(--font-family-Font-1, Inter);
+        font-size: 12.594px;
+        font-style: normal;
+        font-weight: var(--font-weight-500, 500);
+        line-height: var(--line-height-18_2, 18.2px);
+        /* 144.516% */
+    }
+
+    &__status {
+        text-wrap: nowrap;
+        display: flex;
+        padding: 6px 25px;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 4px;
+
+        color: var(--color-white-solid, #FFF);
+        text-align: center;
+
+        /* leader-id.ru/Inter/Medium */
+        font-family: var(--font-family-Font-1, Inter);
+        font-size: 12.391px;
+        font-style: normal;
+        font-weight: var(--font-weight-500, 500);
+        line-height: var(--line-height-14_95, 14.95px);
+        /* 120.656% */
+
+        &.pending {
+            background: var(--color-blue-54, #7C8296);
+        }
+
+        &.approved {
+            background: var(--color-blue-54, #37bb49);
+        }
+
+        &.rejected {
+            background: var(--color-red-65, #FF564E);
+        }
+
+        &.need-edit {
+            background: var(--color-red-65, #ffd34e);
+        }
+    }
+
+    &__item-button {
+        color: var(--leader-id-ru-dodger-blue, var(--color-azure-56, #2185FB));
+        text-align: center;
+        leading-trim: both;
+        text-wrap: nowrap;
+        text-edge: cap;
+        font-family: var(--font-family-Font-1, Inter);
+        font-size: 12px;
+        font-style: normal;
+        font-weight: var(--font-weight-700, 700);
+        line-height: var(--line-height-18, 18px);
+        /* 150% */
+
+        display: flex;
+        padding: 14px 25px;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 163px;
+        background: var(--color-white-solid, #FFF);
+        box-shadow: 0px 3px 5px 0px rgba(142, 165, 192, 0.20), 0px 6px 10px 0px rgba(142, 165, 192, 0.14), 0px 1px 18px 0px rgba(142, 165, 192, 0.12);
+
+        transition: all 0.3 ease-in-out;
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+}
+
+.form-login {
+    min-height: 50vh;
+    margin: auto;
+}
+
+#myForm {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.verify {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    justify-content: space-between;
+}
+
+.verify-status {
+    width: 75%;
+    // background: #e0e0e0;
+    padding: 0 24px;
+    border-radius: 12px;
+
+    font-family: Inter;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+
+.verify-info {
+    font-family: Inter;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+
+    &.true {
+        color: #37bb49;
+    }
+
+    &.false {
+        color: #FF564E;
+    }
+
+    &.pending {
+        color: #ffd34e;
+    }
+}
+
+.avatar-image {
+    width: 300px;
+    height: 300px;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.btn-outline {
+    color: var(--leader-id-ru-dodger-blue, var(--color-azure-56, #2185FB));
+    text-align: center;
+
+    /* leader-id.ru/Inter/Bold */
+    font-family: var(--font-family-Font-1, Inter);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: var(--font-weight-700, 700);
+    line-height: var(--line-height-18, 18px);
+    /* 128.571% */
+    display: flex;
+    width: fit-content;
+    padding: 15px 25px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 4px;
+    border: var(--stroke-weight-1, 1px) solid var(--leader-id-ru-periwinkle-gray, #BDCFE4);
 }

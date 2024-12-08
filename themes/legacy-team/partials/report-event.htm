@@ -1,0 +1,11 @@
+<h1>Генерация отчета по мероприятиям</h1>
+<form data-request-flash data-request="onCreateEventReport" method="POST" class="mt-20 custom-form">
+    <select name="event_id" id="event_id" class="form-control" required>
+        {% for event in eventsForReports %}
+        <option value="{{ event.id }}">{{ event.name }}</option>
+        {% endfor %}
+    </select>
+    <button class="btn btn-primary">Создать отчет о мероприятии</button>
+</form>
+
+<div id="pdfDownloadLink" class="mt-20"></div>

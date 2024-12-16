@@ -20,7 +20,7 @@ dp = Dispatcher(bot)
 app = FastAPI()
 
 # Database setup
-DB_FILE = "users.db"
+DB_FILE = "/var/www/fastuser/data/www/final-hackathone.dev-level.ru/users.db"
 
 def init_db():
     """Initialize the database and create the necessary table."""

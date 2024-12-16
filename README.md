@@ -17,10 +17,11 @@
 ## Решение
 
 ### Ссылки
-- https://final-hackathone.dev-level.ru/ - личные кабинеты регионального и федерального представителя
+- https://final-hackathone.dev-level.ru/account - личные кабинеты регионального и федерального представителя
 - https://dev-level.ru/ - пользовательский сайт
 - https://drive.google.com/drive/folders/1Dp8r3Z3tLQ_250XhECjb1UA9IHxXcju2 - диск с скринкастом, презентацией и скриншотами
 - https://app.swaggerhub.com/apis/pankinnkt/your-api/1.0.0#/default - файл документации к API
+- https://github.com/hackathonsrus/pp_final_50428_skfo_sta_legasitim_11/tree/main/frontend - фронтенд пользовательского сайта
 
 ### Доступы
 Федеральный представитель:
